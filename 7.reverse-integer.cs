@@ -7,7 +7,7 @@
 // @lc code=start
 using System;
 using System.Collections.Generic;
-public class Solution {
+public partial class Solution {
 
     public int Reverse(int x) {
         int rev = 0;
