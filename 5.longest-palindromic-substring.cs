@@ -8,72 +8,128 @@ using System.Collections.Generic;
 // @lc code=start
 public partial class Solution {
     public string LongestPalindrome(string s) {
-        int palindromeLength, palindromeStart, palindromeEnd;
-        LongestPalindromeHelper(s, 0, s.Length, 0, out palindromeLength, out palindromeStart, out palindromeEnd);
+        //special case
+        if (s.Length==0 || s.Length==1) return s;
 
-        return s.Substring(palindromeStart, palindromeEnd - palindromeStart);
-    }
-
-    // @ return (isPalindrome, palindromeLength, palindromeStart, palindromeEnd)
-    internal bool LongestPalindromeHelper(string s, int substring_start, int substring_end, int current_palindrome_max_len, out int palindromeLength, out int palindromeStart, out int palindromeEnd)
-    {
-        int substring_length = substring_end - substring_start;
-
+        // bool[,] is_palindrome = new bool[s.Length, s.Length];
+        List<int> on_testing_0 = new List<int>(s.Length);
+        List<int> on_testing_1 = new List<int>(s.Length-1);
+        int i;
+        
         // base case
-        if (substring_length==0 || substring_length==1)
+        int bound = s.Length - 1;
+        // is_palindrome[0,0] = true;
+        for (i = 1; i < bound; i++)
         {
-            palindromeLength = substring_length;
-            palindromeStart = substring_start;
-            palindromeEnd = substring_end;
-            return true;
+            // is_palindrome[i,i] = true;
+            on_testing_0.Add(i);
         }
-
-        // normal case
-        // normal case: palindrome case
-        if (s[substring_start]==s[substring_end-1])
+        // is_palindrome[bound, bound] = true;
+        
+        for (i = 1; i < s.Length; i++)
         {
-            bool isPalindrome;
-            int palindromeLength_m, palindromeStart_m, palindromeEnd_m;
-            isPalindrome = LongestPalindromeHelper(s, substring_start+1, substring_end-1, current_palindrome_max_len, out palindromeLength_m, out palindromeStart_m, out palindromeEnd_m);
-            
-            if(isPalindrome)
+            if (s[i-1] == s[i])
             {
-                palindromeLength = palindromeLength_m+2;
-                palindromeStart = substring_start;
-                palindromeEnd = substring_end;
-                return true;
+                // is_palindrome[i-1,i] = true;
+                on_testing_1.Add(i);
             }
+            //else
+                // is_palindrome[i-1,i] = false;
         }
 
-        //normal case: not palindrome case
-        if(substring_length < current_palindrome_max_len) // 对于substring_length小于current_palindrome_max_len的情况，直接放弃对字串的测试
+        // testing
+        int longest_length = 1, palindrome_start = 0;//, palindrome_end = 1;
+        if (on_testing_1.Count>0)
         {
-            palindromeLength = 0;
-            palindromeStart = 0;
-            palindromeEnd = 0;
-            return false;
+            longest_length = 2;
+            palindrome_start = on_testing_1[0] - 1;
+            // palindrome_end = on_testing_1[0] + 1;
         }
 
-        int palindromeLength_l, palindromeStart_l, palindromeEnd_l;
-        LongestPalindromeHelper(s, substring_start, substring_end-1, current_palindrome_max_len, out palindromeLength_l, out palindromeStart_l, out palindromeEnd_l);
+        if (on_testing_1.Count>0 && on_testing_1[0]==1)
+            on_testing_1.Remove(1);
+        
+        if (on_testing_1.Count>0 && on_testing_1[^1]==s.Length-1)
+            on_testing_1.Remove(s.Length-1);
 
-        int palindromeLength_r, palindromeStart_r, palindromeEnd_r;
-        LongestPalindromeHelper(s, substring_start+1, substring_end, Math.Max(current_palindrome_max_len, palindromeLength_l), out palindromeLength_r, out palindromeStart_r, out palindromeEnd_r);
-
-        if (palindromeLength_l < palindromeLength_r)
+        bound = (s.Length + 1) / 2;
+        List<int> to_remove = new List<int>();
+        int curr_len;
+        for (i = 1; i < bound; i++)
         {
-            palindromeLength = palindromeLength_r;
-            palindromeStart = palindromeStart_r;
-            palindromeEnd = palindromeEnd_r;
-            return false;
+            if(on_testing_0.Count==0)
+                break;
+
+            to_remove.Clear();
+            foreach(var v in on_testing_0)
+            {
+                if (v - i < 0 || v + i >= s.Length)
+                {
+                    to_remove.Add(v);
+                }
+                else if (s[v+i]==s[v-i])
+                {
+                    // is_palindrome[v-i, v+i] = true;
+                    curr_len = 2 * i + 1;
+                    if(curr_len > longest_length)
+                    {
+                        longest_length = curr_len;
+                        palindrome_start = v - i;
+                        // palindrome_end = v + i + 1;
+                    }
+                }
+                else
+                {
+                    // is_palindrome[v-i, v+i] = false;
+                    to_remove.Add(v);
+                }
+            }
+            foreach(var v in to_remove)
+                on_testing_0.Remove(v);
+
+            if(on_testing_0.Count==0)
+                break;
         }
-        else
+
+        for (i = 1; i < bound; i++)
         {
-            palindromeLength = palindromeLength_l;
-            palindromeStart = palindromeStart_l;
-            palindromeEnd = palindromeEnd_l;
-            return false;
-        }    }
+            if(on_testing_1.Count==0)
+                break;
+
+            to_remove.Clear();
+            foreach(var v in on_testing_1)
+            {
+                if (v - i - 1 < 0 || v + i >= s.Length)
+                {
+                    to_remove.Add(v);
+                }
+                else if (s[v+i]==s[v-i-1])
+                {
+                    // is_palindrome[v-i-1, v+i] = true;
+                    curr_len = 2 * i + 2;
+                    if(curr_len > longest_length)
+                    {
+                        longest_length = curr_len;
+                        palindrome_start = v - i - 1;
+                        // palindrome_end = v + i + 1;
+                    }
+                }
+                else
+                {
+                    // is_palindrome[v-i-1, v+i] = false;
+                    to_remove.Add(v);
+                }
+            }
+            foreach(var v in to_remove)
+                on_testing_1.Remove(v);
+
+            if(on_testing_1.Count==0)
+                break;
+        }
+
+        return s.Substring(palindrome_start, longest_length);
+
+    }
 }
 // @lc code=end
 

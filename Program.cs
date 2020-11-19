@@ -62,6 +62,12 @@ namespace leetcode
             AssertEquals(sln.LongestPalindrome("cbbd"), "bb");
             AssertEquals(sln.LongestPalindrome("a"), "a");
             AssertEquals(sln.LongestPalindrome("ac"), "a");
+            AssertEquals(sln.LongestPalindrome("aa"), "aa");
+            AssertEquals(sln.LongestPalindrome("aaa"), "aaa");
+            AssertEquals(sln.LongestPalindrome("aaaa"), "aaaa");
+            AssertEquals(sln.LongestPalindrome("aaaaa"), "aaaaa");
+            AssertEquals(sln.LongestPalindrome("aaaaaa"), "aaaaaa");
+            AssertEquals(sln.LongestPalindrome("aaaaaaa"), "aaaaaaa");
             AssertEquals(sln.LongestPalindrome(""), "");
             AssertEquals(sln.LongestPalindrome("babaddtattarrattatddetartrateedredividerb"), "ddtattarrattatdd");
             AssertEquals(sln.LongestPalindrome("civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth"), "ranynar");
