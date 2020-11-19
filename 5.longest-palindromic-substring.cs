@@ -12,8 +12,8 @@ public partial class Solution {
         if (s.Length==0 || s.Length==1) return s;
 
         // bool[,] is_palindrome = new bool[s.Length, s.Length];
-        List<int> on_testing_0 = new List<int>(s.Length);
-        List<int> on_testing_1 = new List<int>(s.Length-1);
+        SortedList<int, int> on_testing_0 = new SortedList<int, int>(s.Length);
+        SortedList<int, int> on_testing_1 = new SortedList<int, int>(s.Length-1);
         int i;
         
         // base case
@@ -22,7 +22,7 @@ public partial class Solution {
         for (i = 1; i < bound; i++)
         {
             // is_palindrome[i,i] = true;
-            on_testing_0.Add(i);
+            on_testing_0.Add(i, i);
         }
         // is_palindrome[bound, bound] = true;
         
@@ -31,7 +31,7 @@ public partial class Solution {
             if (s[i-1] == s[i])
             {
                 // is_palindrome[i-1,i] = true;
-                on_testing_1.Add(i);
+                on_testing_1.Add(i, i);
             }
             //else
                 // is_palindrome[i-1,i] = false;
@@ -42,14 +42,14 @@ public partial class Solution {
         if (on_testing_1.Count>0)
         {
             longest_length = 2;
-            palindrome_start = on_testing_1[0] - 1;
+            palindrome_start = on_testing_1.Values[0] - 1;
             // palindrome_end = on_testing_1[0] + 1;
         }
 
-        if (on_testing_1.Count>0 && on_testing_1[0]==1)
+        if (on_testing_1.Count>0 && on_testing_1.Values[0]==1)
             on_testing_1.Remove(1);
         
-        if (on_testing_1.Count>0 && on_testing_1[^1]==s.Length-1)
+        if (on_testing_1.Count>0 && on_testing_1.Values[on_testing_1.Count-1]==s.Length-1)
             on_testing_1.Remove(s.Length-1);
 
         bound = (s.Length + 1) / 2;
@@ -61,7 +61,7 @@ public partial class Solution {
                 break;
 
             to_remove.Clear();
-            foreach(var v in on_testing_0)
+            foreach(var (v, _) in on_testing_0)
             {
                 if (v - i < 0 || v + i >= s.Length)
                 {
@@ -97,7 +97,7 @@ public partial class Solution {
                 break;
 
             to_remove.Clear();
-            foreach(var v in on_testing_1)
+            foreach(var (v, _) in on_testing_1)
             {
                 if (v - i - 1 < 0 || v + i >= s.Length)
                 {
