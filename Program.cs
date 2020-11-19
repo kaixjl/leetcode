@@ -9,9 +9,10 @@ namespace leetcode
         {
             Console.WriteLine("Hello World!");
             Solution sln = new Solution();
-            //P7(sln);
-            P4_BinarySearchTest(sln);
-            P4(sln);
+            // P7(sln);
+            // P4_BinarySearchTest(sln);
+            // P4(sln);
+            P5(sln);
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -53,6 +54,16 @@ namespace leetcode
             AssertEquals(sln.BinarySearch(new[]{0,0,1,2,3,4,4,5,6,7,8,9,10,10,10}, 2, 12, -1), 2);
             AssertEquals(sln.BinarySearch(new[]{0,0,1,2,3,4,4,5,6,7,8,9,10,10,10}, 2, 12, 10), 12);
             AssertEquals(sln.BinarySearch(new[]{0,0,1,2,3,4,4,5,6,7,8,9,10,10,10}, 2, 12, 15), 12);
+        }
+
+        static void P5(Solution sln)
+        {
+            AssertEquals(sln.LongestPalindrome("babad"), "bab");
+            AssertEquals(sln.LongestPalindrome("cbbd"), "bb");
+            AssertEquals(sln.LongestPalindrome("a"), "a");
+            AssertEquals(sln.LongestPalindrome("ac"), "a");
+            AssertEquals(sln.LongestPalindrome(""), "");
+            AssertEquals(sln.LongestPalindrome("babaddtattarrattatddetartrateedredividerb"), "ddtattarrattatdd");
         }
     }
 }
