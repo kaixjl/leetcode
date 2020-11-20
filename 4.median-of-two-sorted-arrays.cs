@@ -21,7 +21,7 @@ public partial class Solution {
             }
             else
             {
-                result = Convert.ToDouble(nums2[nums2.Length/2] + nums2[nums2.Length/2-1]) / 2;
+                result = System.Convert.ToDouble(nums2[nums2.Length/2] + nums2[nums2.Length/2-1]) / 2;
                 return result;
             }
         }
@@ -34,7 +34,7 @@ public partial class Solution {
             }
             else
             {
-                result = Convert.ToDouble(nums1[nums1.Length/2] + nums1[nums1.Length/2-1]) / 2;
+                result = System.Convert.ToDouble(nums1[nums1.Length/2] + nums1[nums1.Length/2-1]) / 2;
                 return result;
             }
         }
@@ -80,7 +80,7 @@ public partial class Solution {
             index1 = sum/2;
             if(sum%2==1)
             {
-                result = Convert.ToDouble(nums1[index1]);
+                result = System.Convert.ToDouble(nums1[index1]);
                 return true;
             }
             else
@@ -91,7 +91,7 @@ public partial class Solution {
                 else if(start2 == 0) another = nums1[index1-1];
                 else another = Math.Max(nums1[index1-1], nums2[start2-1]);
                 
-                result = (Convert.ToDouble(another) + curr1) / 2;
+                result = (System.Convert.ToDouble(another) + curr1) / 2;
                 return true;
             }
         }
@@ -140,7 +140,7 @@ public partial class Solution {
                     else if(idx == 0) another = nums1[index1-1];
                     else another = Math.Max(nums1[index1-1], nums2[idx-1]);
                     
-                    result = (Convert.ToDouble(another) + curr1) / 2;
+                    result = (System.Convert.ToDouble(another) + curr1) / 2;
                     return true;
                 }
                 else
