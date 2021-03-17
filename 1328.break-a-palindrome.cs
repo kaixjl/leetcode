@@ -29,29 +29,13 @@ public partial class Solution {
 
         int i = 0;
 
-        for(i = 0; i < palindrome.Length; i++)
-        {
-            if(palindrome[i] == 'a') continue;
+        for(i = 0; i < palindrome.Length && (palindrome[i] == 'a' || i == palindrome.Length/2 && palindrome.Length%2==1); i++);
 
-            for (char c = 'a'; c < palindrome[i]; c++)
-            {
-                var s = replaceChar(palindrome, i, c);
-                if(!isPalindrome(s)) return s;
-            }
-        }
+        if(i != palindrome.Length) 
+            return replaceChar(palindrome, i, 'a');
+        else
+            return palindrome.Substring(0, palindrome.Length-1) + "b";
 
-        for(i = palindrome.Length - 1; i >=0; i--)
-        {
-            if(palindrome[i] == 'z') continue;
-
-            for (char c = (char)(palindrome[i] + 1); c <= 'z'; c++)
-            {
-                var s = replaceChar(palindrome, i, c);
-                if(!isPalindrome(s)) return s;
-            }
-        }
-
-        return "";
 
     }
 }
