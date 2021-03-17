@@ -29,7 +29,11 @@ public partial class Solution {
 
         int i = 0;
 
-        for(i = 0; i < palindrome.Length && (palindrome[i] == 'a' || i == palindrome.Length/2 && palindrome.Length%2==1); i++);
+        if(palindrome.Length%2==1)
+            for(i = 0; i < palindrome.Length && (palindrome[i] == 'a' || i == palindrome.Length/2); i++);
+        else
+            for(i = 0; i < palindrome.Length && palindrome[i] == 'a'; i++);
+        
 
         if(i != palindrome.Length) 
             return replaceChar(palindrome, i, 'a');
