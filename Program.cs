@@ -13,15 +13,35 @@ namespace leetcode
             // P4_BinarySearchTest(sln);
             // P4(sln);
             // P5(sln);
-            P6(sln);
+            // P6(sln);
+            P1328(sln);
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
         {
             if(!val1.Equals(val2))
             {
-                throw new Exception($"Equation Assertion Failed. val1 = {val1} but val2 = {val2}.");
+                throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
             }
+        }
+
+        static void P1328(Solution sln)
+        {
+            AssertEquals(sln.isPalindrome(""), false);
+            AssertEquals(sln.isPalindrome("a"), true);
+            AssertEquals(sln.isPalindrome("aa"), true);
+            AssertEquals(sln.isPalindrome("ab"), false);
+            AssertEquals(sln.isPalindrome("aba"), true);
+            AssertEquals(sln.isPalindrome("abaa"), false);
+            AssertEquals(sln.isPalindrome("abba"), true);
+            AssertEquals(sln.replaceChar("abcdefg", 0, 'z'), "zbcdefg");
+            AssertEquals(sln.replaceChar("abcdefg", 1, 'z'), "azcdefg");
+            AssertEquals(sln.replaceChar("abcdefg", 5, 'z'), "abcdezg");
+            AssertEquals(sln.replaceChar("abcdefg", 6, 'z'), "abcdefz");
+            AssertEquals(sln.BreakPalindrome("abccba"), "aaccba");
+            AssertEquals(sln.BreakPalindrome("a"), "");
+            AssertEquals(sln.BreakPalindrome("aa"), "ab");
+            AssertEquals(sln.BreakPalindrome("aba"), "abb");
         }
 
         static void P7(Solution sln)
