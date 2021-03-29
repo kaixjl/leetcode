@@ -14,15 +14,24 @@ namespace leetcode
             // P4(sln);
             // P5(sln);
             // P6(sln);
-            P1328(sln);
+            // P1328(sln);
+            P19(sln);
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
         {
-            if(!val1.Equals(val2))
+            if(val1!=null && val2!=null && !val1.Equals(val2))
             {
                 throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
             }
+        }
+
+        static void P19(Solution sln)
+        {
+            AssertEquals(sln.RemoveNthFromEnd(new ListNode(new int[]{1,2}), 1), ListNode.CreateListNode(new int[]{1}));
+            AssertEquals(sln.RemoveNthFromEnd(new ListNode(new int[]{1}), 1), null);
+            AssertEquals(sln.RemoveNthFromEnd(new ListNode(new int[]{1,2}), 2), ListNode.CreateListNode(new int[]{2}));
+            AssertEquals(sln.RemoveNthFromEnd(new ListNode(new int[]{1,2,3}), 2), ListNode.CreateListNode(new int[]{1,3}));
         }
 
         static void P1328(Solution sln)
