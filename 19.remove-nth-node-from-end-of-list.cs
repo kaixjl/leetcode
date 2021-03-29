@@ -129,21 +129,21 @@ public class ListNode: IEquatable<ListNode> {
  */
 public partial class Solution {
     public ListNode RemoveNthFromEnd(ListNode head, int n) { 
-        int sz = 0;
-        ListNode[] listNode = new ListNode[30];
-        while(head != null)
-        {
-            listNode[sz++]=head;
-            head = head.next;
-        }
-        if(n==sz)
-            return listNode[0].next;
-        else
-        {
-            listNode[sz-n-1].next = listNode[sz-n].next;
-            return listNode[0];
-        }
+        ListNode f = new ListNode(0, head);
+        ListNode l = f, r = head;
         
+        for(int i = 0; i < n; i++)
+            r = r.next;
+
+        while(r != null)
+        {
+            l = l.next;
+            r = r.next;
+        }
+
+        l.next = l.next.next;
+
+        return f.next;       
     }
 }
 // @lc code=end
