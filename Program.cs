@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace leetcode
 {
@@ -17,7 +19,8 @@ namespace leetcode
             // P1328(sln);
             // P19(sln);
             // P210(sln);
-            P695(sln);
+            // P695(sln);
+            P99(sln);
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -26,6 +29,40 @@ namespace leetcode
             {
                 throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
             }
+        }
+
+        static void AssertEqualsEnumerable<T>(IEnumerable<T> val1, IEnumerable<T> val2)
+        {
+            if(val1!=null && val2!=null && !val1.SequenceEqual(val2))
+            {
+                throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
+            }
+        }
+
+        static void P99(Solution sln)
+        {
+            int?[] seq_gt = new int?[]{1,3,null,null,2};
+            TreeNode root = sln.CreateBST(seq_gt);
+            int?[] seq = sln.BSTToNullableInt(root);
+            AssertEqualsEnumerable(seq, seq_gt);
+
+            seq_gt = new int?[]{1,3,null,null,2};
+            root = sln.CreateBST(seq_gt);
+            sln.RecoverTree(root);
+            seq = sln.BSTToNullableInt(root);
+            AssertEqualsEnumerable(seq, new int?[]{3,1,null,null,2});
+
+            seq_gt = new int?[]{3,1,4,null,null,2};
+            root = sln.CreateBST(seq_gt);
+            sln.RecoverTree(root);
+            seq = sln.BSTToNullableInt(root);
+            AssertEqualsEnumerable(seq, new int?[]{2,1,4,null,null,3});
+
+            seq_gt = new int?[]{2,3,1};
+            root = sln.CreateBST(seq_gt);
+            sln.RecoverTree(root);
+            seq = sln.BSTToNullableInt(root);
+            AssertEqualsEnumerable(seq, new int?[]{2,1,3});
         }
 
         static void P695(Solution sln)
