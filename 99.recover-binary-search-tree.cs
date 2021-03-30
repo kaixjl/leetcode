@@ -168,45 +168,19 @@ public partial class Solution {
         if(root==null)
             return true;
 
-        if(left!=null && right==null && left.val > root.val)
+        if(left!=null && left.val > root.val)
         {
             int tmp = left.val;
             left.val = root.val;
             root.val = tmp;
             return false;
         }
-        else if(left==null && right!=null && root.val > right.val)
+        if(right!=null && root.val > right.val)
         {
             int tmp = right.val;
             right.val = root.val;
             root.val = tmp;
             return false;
-        }
-        else if(left!=null && right!=null)
-        {
-            if(left.val < right.val && right.val < root.val)
-            {
-                int tmp = right.val;
-                right.val = root.val;
-                root.val = tmp;
-                return false;
-            }
-            else if(root.val < left.val && left.val < right.val)
-            {
-                int tmp = left.val;
-                left.val = root.val;
-                root.val = tmp;
-                return false;
-            }
-            else if(right.val < root.val && root.val < left.val)
-            {
-                int tmp = left.val;
-                left.val = right.val;
-                right.val = tmp;
-                return false;
-            }
-            else
-                throw new NotImplementedException();
         }
         return CheckAndRecover(root.left, left, root) && CheckAndRecover(root.right, root, right);
     }
