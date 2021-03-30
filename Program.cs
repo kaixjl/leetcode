@@ -15,7 +15,9 @@ namespace leetcode
             // P5(sln);
             // P6(sln);
             // P1328(sln);
-            P19(sln);
+            // P19(sln);
+            // P210(sln);
+            P695(sln);
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -24,6 +26,52 @@ namespace leetcode
             {
                 throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
             }
+        }
+
+        static void P695(Solution sln)
+        {
+            int[][] grid = new int[][]{
+                            new int[]{0,0,1,0,0,0,0,1,0,0,0,0,0},
+                            new int[]{0,0,0,0,0,0,0,1,1,1,0,0,0},
+                            new int[]{0,1,1,0,1,0,0,0,0,0,0,0,0},
+                            new int[]{0,1,0,0,1,1,0,0,1,0,1,0,0},
+                            new int[]{0,1,0,0,1,1,0,0,1,1,1,0,0},
+                            new int[]{0,0,0,0,0,0,0,0,0,0,1,0,0},
+                            new int[]{0,0,0,0,0,0,0,1,1,1,0,0,0},
+                            new int[]{0,0,0,0,0,0,0,1,1,0,0,0,0}};
+            AssertEquals(sln.MaxAreaOfIsland(grid), 6);
+            grid = new int[][]{
+                            new int[]{0,0,0,0,0,0,0,0}};
+            AssertEquals(sln.MaxAreaOfIsland(grid), 0);
+        }
+
+        static void P210(Solution sln)
+        {
+            /*
+             * 0-1-2
+             *  \ \
+             *   3-4
+             *  /
+             * 5
+             */
+            int[][] pre = new int[][]{
+                            new int[]{0, 1}, new int[]{0, 3}, new int[]{1, 2}, 
+                            new int[]{1, 4}, new int[]{3, 4}, new int[]{5, 3}};
+            Debug.Assert(sln.CheckP210(new int[]{2, 4, 1, 3, 0, 5}, pre));
+            int[] seq = sln.FindOrder(6, pre);
+            Debug.Assert(sln.CheckP210(seq, pre));
+
+            
+            pre = new int[][]{
+                            new int[]{1, 0}, new int[]{2, 0},  
+                            new int[]{3, 1}, new int[]{3, 2}};
+            seq = sln.FindOrder(4, pre);
+            Debug.Assert(sln.CheckP210(seq, pre));
+
+            
+            pre = new int[0][];
+            seq = sln.FindOrder(1, pre);
+            Debug.Assert(sln.CheckP210(seq, pre));
         }
 
         static void P19(Solution sln)
