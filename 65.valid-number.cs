@@ -90,180 +90,122 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 // @lc code=start
-public enum TagType
-{
-    Unknown,
-    Sign,
-    Digits,
-    Dot,
-    E,
-    Decimal,
-    Integer,
-}
-
-public class LexNode
-{
-    public string content = "";
-    public TagType tag = TagType.Unknown;
-    public List<LexNode> subNodes = new List<LexNode>();
-    public int length = 0;
-    public LexNode(string content, TagType tag, int length)
-    {
-        this.content = content;
-        this.tag = tag;
-        this.length = length;
-    }
-
-    public LexNode(){}
-}
 public partial class Solution {
-    LexNode ParseSign(string s, int p)
+    int ParseSign(string s, int p)
     {
-        if (p>=s.Length) return null;
+        if (p>=s.Length) return 0;
 
         if(s[p]=='+' || s[p]=='-')
-            return new LexNode(s.Substring(p, 1), TagType.Sign, 1);
+            return 1;
         else
-            return null;
+            return 0;
     }
 
-    LexNode ParseDigits(string s, int p)
+    int ParseDigits(string s, int p)
     {
-        if (p>=s.Length) return null;
+        if (p>=s.Length) return 0;
 
         int q = p;
         while(q<s.Length && Char.IsDigit(s[q]))
             q++;
-        if(p!=q)
-            return new LexNode(s.Substring(p, q-p), TagType.Digits, q-p);
-        else
-            return null;
+
+        return q - p;
     }
 
-    LexNode ParseDot(string s, int p)
+    int ParseDot(string s, int p)
     {
-        if (p>=s.Length) return null;
+        if (p>=s.Length) return 0;
 
         if(s[p]=='.')
-            return new LexNode(s.Substring(p, 1), TagType.Sign, 1);
+            return 1;
         else
-            return null;
+            return 0;
     }
 
-    LexNode ParseE(string s, int p)
+    int ParseE(string s, int p)
     {
-        if (p>=s.Length) return null;
+        if (p>=s.Length) return 0;
 
         if(s[p]=='E' || s[p]=='e')
-            return new LexNode(s.Substring(p, 1), TagType.Sign, 1);
+            return 1;
         else
-            return null;
+            return 0;
     }
 
-    LexNode ParseDecimal(string s, int p)
+    int ParseDecimal(string s, int p)
     {
-        LexNode node = new LexNode();
-        LexNode n ;
+        int n ;
         bool digits1 = false, digits2 = false;
         int q = p;
         
-        if (q>=s.Length) return null;
+        if (q>=s.Length) return 0;
 
         n = ParseSign(s, q);
-        if(n!=null)
-        {
-            q += n.length;
-            node.subNodes.Add(n);
-        }
+        q += n;
         
-        if (q==s.Length) return null;
+        if (q==s.Length) return 0;
 
         n = ParseDigits(s, q);
-        if(n!=null)
-        {
-            q += n.length;
-            node.subNodes.Add(n);
-        }
-        digits1 = n!=null;
+        q += n;
+        digits1 = n!=0;
 
-        if (q==s.Length) return null;
+        if (q==s.Length) return 0;
 
         n = ParseDot(s, q);
-        if(n==null)
-            return null;
+        if(n==0)
+            return 0;
 
-        q += n.length;
-        node.subNodes.Add(n);
+        q += n;
 
         if (q==s.Length)
             if(!digits1)
-                return null;
+                return 0;
             else
-            {
-                node.content = s.Substring(p, q - p);
-                node.length = q - p;
-                node.tag = TagType.Decimal;
-                return node;
-            }
+                return q - p;
 
         n = ParseDigits(s, q);
-        if(n!=null)
-        {
-            q += n.length;
-            node.subNodes.Add(n);
-        }
-        digits2 = n!=null;
+        q += n;
+        digits2 = n!=0;
 
         if(!digits1 && !digits2)
-            return null;
+            return 0;
 
-        node.content = s.Substring(p, q - p);
-        node.length = q - p;
-        node.tag = TagType.Decimal;
-        return node;
+        return q - p;
     }
 
-    LexNode ParseInteger(string s, int p)
+    int ParseInteger(string s, int p)
     {
-        LexNode node = new LexNode();
-        LexNode n ;
+        int n ;
         int q = p;
         n = ParseSign(s, q);
-        if(n!=null)
-        {
-            q += n.length;
-            node.subNodes.Add(n);
-        }
+        q += n;
 
         n = ParseDigits(s, q);
-        if(n==null)
-            return null;
+        if(n==0)
+            return 0;
 
-        q += n.length;
-        node.subNodes.Add(n);
+        q += n;
 
-        node.content = s.Substring(p, q - p);
-        node.length = q - p;
-        node.tag = TagType.Integer;
-        return node;
+        return q - p;
     }
 
     public bool IsNumber(string s) {
         int p = 0;
-        LexNode n;
+        int n;
         n = ParseDecimal(s, p);
-        if(n!=null)
+        if(n!=0)
         {
-            p += n.length;
+            p += n;
         }
         else
         {
             n = ParseInteger(s, p);
-            if(n!=null)
+            if(n!=0)
             {
-                p += n.length;
+                p += n;
             }
             else return false;
         }
@@ -272,15 +214,15 @@ public partial class Solution {
             return true;
 
         n = ParseE(s, p);
-        if(n==null)
+        if(n==0)
             return false;
 
-        p += n.length;
+        p += n;
         n = ParseInteger(s, p);
-        if(n==null)
+        if(n==0)
             return false;
         
-        p += n.length;
+        p += n;
 
         if(p==s.Length)
             return true;
