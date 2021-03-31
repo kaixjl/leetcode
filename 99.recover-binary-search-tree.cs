@@ -164,89 +164,30 @@ public partial class Solution {
  * }
  */
 public partial class Solution {
-    public bool CheckAndRecover(TreeNode root, out TreeNode max, out TreeNode min) {
-        if(root==null)
-        {
-            max = null; min = null;
-            return true;
-        }
-
-        TreeNode leftMax = null, leftMin = null, rightMax = null, rightMin = null;
-        if(!CheckAndRecover(root.left, out leftMax, out leftMin))
-        {
-            max = null; min = null;
-            return true;
-        }
-
-        if(!CheckAndRecover(root.right, out rightMax, out rightMin))
-        {
-            max = null; min = null;
-            return true;
-        }
-        
-        // swap
-        if(leftMax!=null && rightMin==null && leftMax.val > root.val)
-        {
-            int tmp = leftMax.val;
-            leftMax.val = root.val;
-            root.val = tmp;
-            max = null; min = null;
-            return false;
-        }
-        else if(leftMax==null && rightMin!=null && root.val > rightMin.val)
-        {
-            int tmp = rightMin.val;
-            rightMin.val = root.val;
-            root.val = tmp;
-            max = null; min = null;
-            return false;
-        }
-        else if(leftMax!=null && rightMin!=null)
-        {   
-            if (leftMax.val < root.val && root.val < rightMin.val);
-            else if(leftMax.val < rightMin.val && rightMin.val < root.val)
-            {
-                int tmp = rightMin.val;
-                rightMin.val = root.val;
-                root.val = tmp;
-                max = null; min = null;
-                return false;
-            }
-            else if(root.val < leftMax.val && leftMax.val < rightMin.val)
-            {
-                int tmp = leftMax.val;
-                leftMax.val = root.val;
-                root.val = tmp;
-                max = null; min = null;
-                return false;
-            }
-            else if(rightMin.val < root.val && root.val < leftMax.val)
-            {
-                int tmp = leftMax.val;
-                leftMax.val = rightMin.val;
-                rightMin.val = tmp;
-                max = null; min = null;
-                return false;
-            }
-            else
-                throw new NotImplementedException();
-        }
-
-        if(rightMax!=null)
-            max = rightMax;
-        else
-            max = root;
-
-        if(leftMin!=null)
-            min = leftMin;
-        else
-            min = root;
-
-        return true;
-        
-    }
     public void RecoverTree(TreeNode root) {
-        CheckAndRecover(root, out TreeNode max, out TreeNode min);
+        List<TreeNode[]> disorders = new List<TreeNode[]>();
+        Stack<TreeNode> open = new Stack<TreeNode>();
+        TreeNode last = null;
+        TreeNode p = root;
+        while(p!=null || open.Count>0){
+            while(p!=null)
+            {
+                open.Push(p);
+                p = p.left;
+            }
+            TreeNode curr = open.Pop();
+            if(last!=null)
+            {
+                if(last.val > curr.val)
+                    disorders.Add(new TreeNode[]{last, curr});
+            }
+            last = curr;
+            p = curr.right;
+        }
+        var tmp = disorders[0][0].val;
+        disorders[0][0].val = disorders[disorders.Count-1][1].val;
+        disorders[disorders.Count-1][1].val = tmp;
+        
     }
 }
 // @lc code=end
