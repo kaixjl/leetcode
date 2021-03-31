@@ -18,9 +18,10 @@ namespace leetcode
             // P6(sln);
             // P1328(sln);
             // P19(sln);
-            P210(sln);
+            // P210(sln);
             // P695(sln);
             // P99(sln);
+            P65(sln);
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -37,6 +38,23 @@ namespace leetcode
             {
                 throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
             }
+        }
+
+        static void P65(Solution sln)
+        {
+            string[] validNumberString = new string[]{
+                "2", "0089", "-0.1", "+3.14", "4.", "-.9", "2e10", 
+                "-90E3", "3e+7", "+6e-1", "53.5e93", "-123.456e789",
+                "0", ".1"};
+            string[] invalidNumberString = new string[]{
+                "abc", "1a", "1e", "e3", "99e2.5", "--6", "-+3", "95a54e53",
+                "e", "."};
+            
+            foreach(var str in validNumberString)
+                AssertEquals(sln.IsNumber(str), true);
+
+            foreach(var str in invalidNumberString)
+                AssertEquals(sln.IsNumber(str), false);    
         }
 
         static void P99(Solution sln)
