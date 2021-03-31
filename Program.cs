@@ -18,9 +18,9 @@ namespace leetcode
             // P6(sln);
             // P1328(sln);
             // P19(sln);
-            // P210(sln);
+            P210(sln);
             // P695(sln);
-            P99(sln);
+            // P99(sln);
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)

@@ -87,6 +87,23 @@ public partial class Solution {
         }
         return true;
     }
+
+    public void ClearTreeNodeAccess(CourseTreeNode root){
+        Queue<CourseTreeNode> open = new Queue<CourseTreeNode>();
+        HashSet<CourseTreeNode> close = new HashSet<CourseTreeNode>();
+        open.Enqueue(root);
+        while(open.Count!=0)
+        {
+            var curr = open.Dequeue();
+            close.Add(curr);
+            curr.accessed = 0;
+            foreach(var node in curr.prerequisites)
+            {
+                if(!open.Contains(node) && !close.Contains(node))
+                    open.Enqueue(node);
+            }
+        }
+    }
 }
 
 // @lc code=start
@@ -95,6 +112,7 @@ public class CourseTreeNode {
     public CourseTreeNode parrent = null;
     public bool learned = false;
     public List<CourseTreeNode> prerequisites;
+    public int accessed = 0;
     public CourseTreeNode(int val=0) {
         this.val = val;
         prerequisites = new List<CourseTreeNode>();
@@ -168,42 +186,51 @@ public partial class Solution {
 
     public int[] FindOrder(int numCourses, int[][] prerequisites) {
         Dictionary<int, CourseTreeNode> nodes = PrerequisitesToCourseTreeNodes(numCourses, prerequisites);
-        List<List<int>> orders = new List<List<int>>();
-        HashSet<CourseTreeNode> close = new HashSet<CourseTreeNode>();
+        List<int> order = new List<int>();
+        LinkedList<CourseTreeNode> open = new LinkedList<CourseTreeNode>();
 
         for(int i = 0; i < numCourses; i++)
         {
-            Queue<CourseTreeNode> open_l = new Queue<CourseTreeNode>();
-            HashSet<CourseTreeNode> close_l = new HashSet<CourseTreeNode>();
-            List<int> order = new List<int>();
 
             CourseTreeNode head = nodes[i];
-
-            open_l.Enqueue(head);
-            while(open_l.Count>0)
+            if(head.accessed==-1) continue;
+            open.AddFirst(head);
+            head.accessed = 1;
+            while(open.Count>0)
             {
-                CourseTreeNode curr = open_l.Dequeue();
-                if(close.Contains(curr))
-                    continue;
-                if(close_l.Contains(curr))
-                    return new int[0];
-                order.Add(curr.val);
-
-                foreach(var child in curr.prerequisites)
-                    if (!open_l.Contains(child))
-                        open_l.Enqueue(child);
-
-                close_l.Add(curr);
+                CourseTreeNode curr = open.First();
+                if(curr.accessed==1) // discovered
+                {
+                    curr.accessed += 1;
+                    foreach(var node in curr.prerequisites)
+                    {
+                        if(node.accessed>1) // accessed while not finished.
+                        {
+                            return new int[0];
+                        }
+                        else if (node.accessed==0) // not discovered.
+                        {
+                            open.AddFirst(node);
+                            node.accessed += 1;
+                        }
+                        else if (node.accessed==1) // discovered while not accessed.
+                        {
+                            open.Remove(node);
+                            open.AddFirst(node);
+                        }
+                        else if (node.accessed==-1) ; // finished. Do nothing.
+                    }
+                }
+                else if(curr.accessed>1) // accessed
+                {
+                    order.Add(curr.val);
+                    curr.accessed = -1; // finished
+                    open.RemoveFirst();
+                }
             }
-            orders.Add(order);
-            close.UnionWith(close_l);
         }
 
-        List<int> o = new List<int>(numCourses);
-        foreach(var order in orders)
-            foreach(var val in order.Reverse<int>())
-                o.Add(val);
-        return o.ToArray();
+        return order.ToArray();
     }
 }
 // @lc code=end
