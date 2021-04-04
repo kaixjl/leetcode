@@ -91,8 +91,18 @@
 
 // @lc code=start
 public partial class Solution {
+    void PrintRank(int[][] rank)
+    {
+        foreach(var row in rank)
+        {
+            foreach(var v in row)
+                Console.Write($"{v} ");
+            Console.WriteLine();
+        }
+
+    }
     public int[][] MatrixRankTransform(int[][] matrix) {
-        SortedList<int, List<int[]>> vals = new SortedList<int, List<int[]>>();
+        SortedDictionary<int, List<int[]>> vals = new SortedDictionary<int, List<int[]>>();
         for(int i = 0; i < matrix.Length; i++)
             for(int j = 0; j < matrix[i].Length; j++)
             {
@@ -126,16 +136,80 @@ public partial class Solution {
         // 从最小开始检查每个元素行列
         foreach(var pts in vals.Values)
         {
-            var v = matrix[pts[0][0]][pts[0][1]];
-            var curr_rank = Math.Max(max_rank_in_rows[i], max_rank_in_cols[j]) + 1;
-            foreach (var pt in pts)
+            List<HashSet<int>> rows = new List<HashSet<int>>(), cols = new List<HashSet<int>>();
+            List<List<int[]>> groups = new List<List<int[]>>();
+            foreach(var pt in pts)
             {
                 var i = pt[0];
                 var j = pt[1];
-                rank[i][j] = curr_rank;
-                max_rank_in_rows[i] = curr_rank;
-                max_rank_in_cols[j] = curr_rank;
+                List<int> found = new List<int>();
+                for(int c = 0; c < rows.Count; c++)
+                {
+                    var row = rows[c];
+                    var col = cols[c];
+                    if(row.Contains(i) || col.Contains(j))
+                        found.Add(c);
+                }
+                if(found.Count==0)
+                {
+                    List<int[]> group = new List<int[]>();
+                    group.Add(pt);
+                    groups.Add(group);
+                    HashSet<int> row = new HashSet<int>();
+                    row.Add(i);
+                    rows.Add(row);
+                    HashSet<int> col = new HashSet<int>();
+                    col.Add(j);
+                    cols.Add(col);
+                }
+                else
+                {
+                    var group = groups[found[0]];
+                    var row = rows[found[0]];
+                    var col = cols[found[0]];
+                    group.Add(pt);
+                    row.Add(i);
+                    col.Add(j);
+                    if(found.Count>1)
+                    {
+                        for(int d = 1; d < found.Count; d++)
+                        {
+                            groups[found[0]].AddRange(groups[found[d]]);
+                            rows[found[0]].UnionWith(rows[found[d]]);
+                            cols[found[0]].UnionWith(cols[found[d]]);
+                        }
+                        
+                        for(int d = found.Count - 1; d > 0; d--)
+                        {
+                            groups.RemoveAt(found[d]);
+                            rows.RemoveAt(found[d]);
+                            cols.RemoveAt(found[d]);
+                        }
+                    }
+                }
             }
+
+            foreach(var group in groups)
+            {
+                var v = matrix[group[0][0]][group[0][1]];
+                int curr_rank = 0;
+                foreach (var pt in group)
+                {
+                    var i = pt[0];
+                    var j = pt[1];
+                    curr_rank = Math.Max(curr_rank, Math.Max(max_rank_in_rows[i], max_rank_in_cols[j]) + 1);
+                }
+                foreach (var pt in group)
+                {
+                    var i = pt[0];
+                    var j = pt[1];
+                    
+                    rank[i][j] = curr_rank;
+                    max_rank_in_rows[i] = curr_rank;
+                    max_rank_in_cols[j] = curr_rank;
+                }
+            }
+
         }
 
         return rank;

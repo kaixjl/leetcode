@@ -21,7 +21,8 @@ namespace leetcode
             // P210(sln);
             // P695(sln);
             // P99(sln);
-            P65(sln);
+            // P65(sln);
+            P1632(sln);
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -38,6 +39,62 @@ namespace leetcode
             {
                 throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
             }
+        }
+
+        static void P1632(Solution sln)
+        {
+            int[][] matrix, rank, result;
+            matrix = new int[][]{new int []{1,2}, new int []{3,4}};
+            rank = new int[][]{new int []{1,2}, new int []{2,3}};
+            result = sln.MatrixRankTransform(matrix);
+            foreach(var (row_m, row_r) in result.Zip(rank))
+                AssertEqualsEnumerable(row_m, row_r);
+            
+            matrix = new int[][]{new int []{7,7}, new int []{7,7}};
+            rank = new int[][]{new int []{1,1}, new int []{1,1}};
+            result = sln.MatrixRankTransform(matrix);
+            foreach(var (row_m, row_r) in result.Zip(rank))
+                AssertEqualsEnumerable(row_m, row_r);
+            
+            matrix = new int[][]{new int []{20,-21,14}, new int []{-19,4,19}, new int []{22,-47,24}, new int []{-19,4,19}};
+            rank = new int[][]{new int []{4,2,3}, new int []{1,3,4}, new int []{5,1,6}, new int []{1,3,4}};
+            result = sln.MatrixRankTransform(matrix);
+            foreach(var (row_m, row_r) in result.Zip(rank))
+                AssertEqualsEnumerable(row_m, row_r);
+            
+            matrix = new int[][]{new int []{7,3,6}, new int []{1,4,5}, new int []{9,8,2}};
+            rank = new int[][]{new int []{5,1,4}, new int []{1,2,3}, new int []{6,3,1}};
+            result = sln.MatrixRankTransform(matrix);
+            foreach(var (row_m, row_r) in result.Zip(rank))
+                AssertEqualsEnumerable(row_m, row_r);
+            
+            matrix = new int [][]{new int []{-24,-9,-14,-15,44,31,-46,5,20,-5,34},
+                                  new int []{9,-40,-49,-50,17,40,35,30,-39,36,-49},
+                                  new int []{-18,-43,-40,-5,-30,9,-28,-41,-6,-47,12},
+                                  new int []{11,42,-23,20,35,34,-39,-16,27,34,-15},
+                                  new int []{32,27,-30,29,-48,15,-50,-47,-28,-21,38},
+                                  new int []{45,48,-1,-18,9,-4,-13,10,9,8,-41},
+                                  new int []{-42,-35,20,-17,10,5,36,47,6,1,8},
+                                  new int []{3,-50,-23,16,31,2,-39,36,-25,-30,37},
+                                  new int []{-48,-41,18,-31,-48,-1,-42,-3,-8,-29,-2},
+                                  new int []{17,0,31,-30,-43,-20,-37,-6,-43,8,19},
+                                  new int []{42,25,32,27,-2,45,12,-9,34,17,32}};
+            rank = new int [][]{new int []{4,11,10,9,25,21,2,14,20,12,24},
+                                new int []{18,5,2,1,21,25,23,22,6,24,2},
+                                new int []{8,2,5,11,6,18,7,4,10,1,20},
+                                new int []{19,24,9,20,23,22,4,10,21,22,11},
+                                new int []{23,20,6,22,2,19,1,3,7,8,26},
+                                new int []{26,27,11,7,19,9,8,20,19,14,3},
+                                new int []{3,6,21,8,20,17,24,25,18,13,19},
+                                new int []{17,1,9,18,22,16,4,23,8,5,25},
+                                new int []{2,4,16,5,2,15,3,13,9,6,14},
+                                new int []{20,13,22,6,3,7,5,12,3,14,21},
+                                new int []{25,16,23,21,12,26,13,11,24,15,23}};
+            result = sln.MatrixRankTransform(matrix);
+            foreach(var (row_m, row_r) in result.Zip(rank))
+                AssertEqualsEnumerable(row_m, row_r);
+
+            //
         }
 
         static void P65(Solution sln)
