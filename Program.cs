@@ -23,7 +23,8 @@ namespace leetcode
             // P99(sln);
             // P65(sln);
             // P1632(sln);
-            P983(sln);
+            // P983(sln);
+            P1447(sln);
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -40,6 +41,28 @@ namespace leetcode
             {
                 throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
             }
+            if(val1==null && val2!=null && val2.Count()>0)
+                throw new Exception($"val1==null, but val2.Count!=0");
+            if(val2==null && val1!=null && val1.Count()>0)
+                throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P1447(Solution sln)
+        {
+            List<T> IListToList<T>(IList<T> iList)
+            {
+                if(iList==null) return null;
+                List<T> list = new List<T>();
+                foreach(var i in iList)
+                    list.Add(i);
+
+                list.Sort();
+                return list;
+            }
+            AssertEqualsEnumerable(IListToList(sln.SimplifiedFractions(2)), new string[]{"1/2"});
+            AssertEqualsEnumerable(IListToList(sln.SimplifiedFractions(3)), new string[]{"1/2","1/3","2/3"});
+            AssertEqualsEnumerable(IListToList(sln.SimplifiedFractions(4)), new string[]{"1/2","1/3","1/4","2/3","3/4"});
+            AssertEqualsEnumerable(IListToList(sln.SimplifiedFractions(1)), null);
         }
 
         static void P983(Solution sln)
