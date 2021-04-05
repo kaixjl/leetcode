@@ -85,28 +85,29 @@ using System;
 public partial class Solution {
     private int MincostTicketsHelper(int[] days, int[] costs, int start, int[] memory)
     {
-        if(days.Length - start == 0) return 0;
+        if(memory[start] != int.MaxValue) return memory[start];
+
+        if(days.Length - start == 0)
+        {
+            memory[start] = 0;
+            return 0;
+        }
 
         int firstDay = days[start];
         int minTicket1 = 0, minTicket7 = 0, minTicket30 = 0;
         int end = start + 1;
         
         for(; end < days.Length && days[end] - firstDay < 1; end++);
-        if(memory[end]==int.MaxValue)
-            memory[end] = MincostTicketsHelper(days, costs, end, memory);
-        minTicket1 = costs[0] + memory[end];
+        minTicket1 = costs[0] + MincostTicketsHelper(days, costs, end, memory);
         
         for(; end < days.Length && days[end] - firstDay < 7; end++);
-        if(memory[end]==int.MaxValue)
-            memory[end] = MincostTicketsHelper(days, costs, end, memory);
-        minTicket7 = costs[1] + memory[end];
+        minTicket7 = costs[1] + MincostTicketsHelper(days, costs, end, memory);
         
         for(; end < days.Length && days[end] - firstDay < 30; end++);
-        if(memory[end]==int.MaxValue)
-            memory[end] = MincostTicketsHelper(days, costs, end, memory);
-        minTicket30 = costs[2] + memory[end];
+        minTicket30 = costs[2] + MincostTicketsHelper(days, costs, end, memory);
 
-        return Math.Min(minTicket1, Math.Min(minTicket7, minTicket30));
+        memory[start] = Math.Min(minTicket1, Math.Min(minTicket7, minTicket30));
+        return memory[start];
         
     }
     public int MincostTickets(int[] days, int[] costs) {
