@@ -30,7 +30,7 @@ namespace leetcode
         {
             if(val1!=null && val2!=null && !val1.Equals(val2))
             {
-                throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
+                throw new Exception($"Equation Assertion Failed. val1 = {val1} but val2 = {val2}.");
             }
         }
 
