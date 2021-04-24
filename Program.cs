@@ -24,7 +24,8 @@ namespace leetcode
             // P65(sln);
             // P1632(sln);
             // P983(sln);
-            P1447(sln);
+            // P1447(sln);
+            P1140(sln);
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -45,6 +46,13 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P1140(Solution sln)
+        {
+            AssertEquals(sln.StoneGameII(new int[]{2,7,9,4,4}), 10);
+            AssertEquals(sln.StoneGameII(new int[]{1,2,3,4,5,100}), 104);
+            AssertEquals(sln.StoneGameII(new int[]{6,4,2,8,1,8,6,6,2}), 24);
         }
 
         static void P1447(Solution sln)
