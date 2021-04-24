@@ -59,8 +59,9 @@
  using System;
  using System.Collections.Generic;
 
+namespace LP1447 {
 // @lc code=start
-public partial class Solution {
+public class Solution {
     private int GCD(int a, int b)
     {
         if (a < b)
@@ -108,4 +109,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

@@ -7,8 +7,9 @@
 using System;
 using System.Collections.Generic;
 
+namespace LP1328 {
 // @lc code=start
-public partial class Solution {
+public class Solution {
     public bool isPalindrome(string str)
     {
         if(str.Length == 0) return false;
@@ -44,4 +45,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

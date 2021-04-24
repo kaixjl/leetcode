@@ -4,10 +4,11 @@
  * [7] Reverse Integer
  */
 
-// @lc code=start
 using System;
 using System.Collections.Generic;
-public partial class Solution {
+namespace LP7 {
+// @lc code=start
+public class Solution {
 
     public int Reverse(int x) {
         int rev = 0;
@@ -57,4 +58,5 @@ public partial class Solution {
 }
 
 // @lc code=end
+}
 

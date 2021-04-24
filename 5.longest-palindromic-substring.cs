@@ -5,8 +5,9 @@
  */
 using System;
 using System.Collections.Generic;
+namespace LP5 {
 // @lc code=start
-public partial class Solution {
+public class Solution {
     public string LongestPalindrome(string s) {
         //special case
         if (s.Length==0 || s.Length==1) return s;
@@ -132,4 +133,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

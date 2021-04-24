@@ -81,8 +81,9 @@
 
 using System;
 
+namespace LP983 {
 // @lc code=start
-public partial class Solution {
+public class Solution {
     private int MincostTicketsHelper(int[] days, int[] costs, int start, int[] memory)
     {
         if(memory[start] != int.MaxValue) return memory[start];
@@ -117,4 +118,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

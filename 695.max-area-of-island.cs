@@ -49,6 +49,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+namespace LP695 {
 // @lc code=start
 public struct Point {
     public int x;
@@ -59,7 +60,7 @@ public struct Point {
         this.y = y;
     }
 }
-public partial class Solution {
+public class Solution {
     public IEnumerable<int[]> Neighbor(int x, int y, int height, int width) {
         if(x - 1 >= 0)
             yield return new int[]{x-1, y};
@@ -122,4 +123,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

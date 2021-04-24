@@ -89,8 +89,9 @@
  using System.Collections.Generic;
  using System.Linq;
 
+namespace LP1632 {
 // @lc code=start
-public partial class Solution {
+public class Solution {
     void PrintRank(int[][] rank)
     {
         foreach(var row in rank)
@@ -216,4 +217,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

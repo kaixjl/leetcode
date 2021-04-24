@@ -10,22 +10,21 @@ namespace leetcode
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Solution sln = new Solution();
-            // P7(sln);
-            // P4_BinarySearchTest(sln);
-            // P4(sln);
-            // P5(sln);
-            // P6(sln);
-            // P1328(sln);
-            // P19(sln);
-            // P210(sln);
-            // P695(sln);
-            // P99(sln);
-            // P65(sln);
-            // P1632(sln);
-            // P983(sln);
-            // P1447(sln);
-            P1140(sln);
+            // P7();
+            // P4_BinarySearchTest();
+            // P4();
+            // P5();
+            // P6();
+            // P1328();
+            // P19();
+            // P210();
+            // P695();
+            // P99();
+            // P65();
+            // P1632();
+            // P983();
+            // P1447();
+            P1140();
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -48,15 +47,17 @@ namespace leetcode
                 throw new Exception($"val1.Count>0, but val2==null.");
         }
 
-        static void P1140(Solution sln)
+        static void P1140()
         {
+            LP1140.Solution sln = new LP1140.Solution();
             AssertEquals(sln.StoneGameII(new int[]{2,7,9,4,4}), 10);
             AssertEquals(sln.StoneGameII(new int[]{1,2,3,4,5,100}), 104);
             AssertEquals(sln.StoneGameII(new int[]{6,4,2,8,1,8,6,6,2}), 24);
         }
 
-        static void P1447(Solution sln)
+        static void P1447()
         {
+            LP1447.Solution sln = new LP1447.Solution();
             List<T> IListToList<T>(IList<T> iList)
             {
                 if(iList==null) return null;
@@ -73,15 +74,17 @@ namespace leetcode
             AssertEqualsEnumerable(IListToList(sln.SimplifiedFractions(1)), null);
         }
 
-        static void P983(Solution sln)
+        static void P983()
         {
+            LP983.Solution sln = new LP983.Solution();
             AssertEquals(sln.MincostTickets(new int[]{1,4,6,7,8,20}, new int[]{2,7,15}), 11);
             AssertEquals(sln.MincostTickets(new int[]{1,2,3,4,5,6,7,8,9,10,30,31}, new int[]{2,7,15}), 17);
             AssertEquals(sln.MincostTickets(new int[]{3,5,6,8,9,10,11,12,13,14,15,16,20,21,23,25,26,27,29,30,33,34,35,36,38,39,40,42,45,46,47,48,49,51,53,54,56,57,58,59,60,61,63,64,67,68,69,70,72,74,77,78,79,80,81,82,83,84,85,88,91,92,93,96}, new int[]{3,17,57}), 170);
         }
 
-        static void P1632(Solution sln)
+        static void P1632()
         {
+            LP1632.Solution sln = new LP1632.Solution();
             int[][] matrix, rank, result;
             matrix = new int[][]{new int []{1,2}, new int []{3,4}};
             rank = new int[][]{new int []{1,2}, new int []{2,3}};
@@ -136,8 +139,9 @@ namespace leetcode
             //
         }
 
-        static void P65(Solution sln)
+        static void P65()
         {
+            LP65.Solution sln = new LP65.Solution();
             string[] validNumberString = new string[]{
                 "2", "0089", "-0.1", "+3.14", "4.", "-.9", "2e10", 
                 "-90E3", "3e+7", "+6e-1", "53.5e93", "-123.456e789",
@@ -153,34 +157,36 @@ namespace leetcode
                 AssertEquals(sln.IsNumber(str), false);    
         }
 
-        static void P99(Solution sln)
+        static void P99()
         {
+            LP99.Solution sln = new LP99.Solution();
             int?[] seq_gt = new int?[]{1,3,null,null,2};
-            TreeNode root = sln.CreateBST(seq_gt);
-            int?[] seq = sln.BSTToNullableInt(root);
+            LP99.TreeNode root = LP99.SolutionHelper.CreateBST(seq_gt);
+            int?[] seq = LP99.SolutionHelper.BSTToNullableInt(root);
             AssertEqualsEnumerable(seq, seq_gt);
 
             seq_gt = new int?[]{1,3,null,null,2};
-            root = sln.CreateBST(seq_gt);
+            root = LP99.SolutionHelper.CreateBST(seq_gt);
             sln.RecoverTree(root);
-            seq = sln.BSTToNullableInt(root);
+            seq = LP99.SolutionHelper.BSTToNullableInt(root);
             AssertEqualsEnumerable(seq, new int?[]{3,1,null,null,2});
 
             seq_gt = new int?[]{3,1,4,null,null,2};
-            root = sln.CreateBST(seq_gt);
+            root = LP99.SolutionHelper.CreateBST(seq_gt);
             sln.RecoverTree(root);
-            seq = sln.BSTToNullableInt(root);
+            seq = LP99.SolutionHelper.BSTToNullableInt(root);
             AssertEqualsEnumerable(seq, new int?[]{2,1,4,null,null,3});
 
             seq_gt = new int?[]{2,3,1};
-            root = sln.CreateBST(seq_gt);
+            root = LP99.SolutionHelper.CreateBST(seq_gt);
             sln.RecoverTree(root);
-            seq = sln.BSTToNullableInt(root);
+            seq = LP99.SolutionHelper.BSTToNullableInt(root);
             AssertEqualsEnumerable(seq, new int?[]{2,1,3});
         }
 
-        static void P695(Solution sln)
+        static void P695()
         {
+            LP695.Solution sln = new LP695.Solution();
             int[][] grid = new int[][]{
                             new int[]{0,0,1,0,0,0,0,1,0,0,0,0,0},
                             new int[]{0,0,0,0,0,0,0,1,1,1,0,0,0},
@@ -196,8 +202,9 @@ namespace leetcode
             AssertEquals(sln.MaxAreaOfIsland(grid), 0);
         }
 
-        static void P210(Solution sln)
+        static void P210()
         {
+            LP210.Solution sln = new LP210.Solution();
             /*
              * 0-1-2
              *  \ \
@@ -225,16 +232,18 @@ namespace leetcode
             Debug.Assert(sln.CheckP210(seq, pre));
         }
 
-        static void P19(Solution sln)
+        static void P19()
         {
-            AssertEquals(sln.RemoveNthFromEnd(new ListNode(new int[]{1,2}), 1), ListNode.CreateListNode(new int[]{1}));
-            AssertEquals(sln.RemoveNthFromEnd(new ListNode(new int[]{1}), 1), null);
-            AssertEquals(sln.RemoveNthFromEnd(new ListNode(new int[]{1,2}), 2), ListNode.CreateListNode(new int[]{2}));
-            AssertEquals(sln.RemoveNthFromEnd(new ListNode(new int[]{1,2,3}), 2), ListNode.CreateListNode(new int[]{1,3}));
+            LP19.Solution sln = new LP19.Solution();
+            AssertEquals(sln.RemoveNthFromEnd(new LP19.ListNode(new int[]{1,2}), 1), LP19.ListNode.CreateListNode(new int[]{1}));
+            AssertEquals(sln.RemoveNthFromEnd(new LP19.ListNode(new int[]{1}), 1), null);
+            AssertEquals(sln.RemoveNthFromEnd(new LP19.ListNode(new int[]{1,2}), 2), LP19.ListNode.CreateListNode(new int[]{2}));
+            AssertEquals(sln.RemoveNthFromEnd(new LP19.ListNode(new int[]{1,2,3}), 2), LP19.ListNode.CreateListNode(new int[]{1,3}));
         }
 
-        static void P1328(Solution sln)
+        static void P1328()
         {
+            LP1328.Solution sln = new LP1328.Solution();
             AssertEquals(sln.isPalindrome(""), false);
             AssertEquals(sln.isPalindrome("a"), true);
             AssertEquals(sln.isPalindrome("aa"), true);
@@ -252,8 +261,9 @@ namespace leetcode
             AssertEquals(sln.BreakPalindrome("aba"), "abb");
         }
 
-        static void P7(Solution sln)
+        static void P7()
         {
+            LP7.Solution sln = new LP7.Solution();
             AssertEquals(sln.Reverse(1234), 4321);
             AssertEquals(sln.Reverse(-1234), -4321);
             AssertEquals(sln.Reverse(120), 21);
@@ -262,8 +272,9 @@ namespace leetcode
             AssertEquals(sln.Reverse(-1534236469), 0);
         }
 
-        static void P4(Solution sln)
+        static void P4()
         {
+            LP4.Solution sln = new LP4.Solution();
             AssertEquals(sln.FindMedianSortedArrays(new[]{1,3}, new[]{2}), 2.0);
             AssertEquals(sln.FindMedianSortedArrays(new[]{1,2}, new[]{3,4}), 5.0 / 2);
             AssertEquals(sln.FindMedianSortedArrays(new[]{0,0}, new[]{0,0}), 0.0);
@@ -272,8 +283,9 @@ namespace leetcode
             AssertEquals(sln.FindMedianSortedArrays(new[]{2}, new int[]{1,3,4}), 2.5);
         }
 
-        static void P4_BinarySearchTest(Solution sln)
+        static void P4_BinarySearchTest()
         {
+            LP4.Solution sln = new LP4.Solution();
             AssertEquals(sln.BinarySearch(new[]{0,0,1,2,3,4,4,5,6,7,8,9,10,10,10}, 0, 15, 0), 0);
             AssertEquals(sln.BinarySearch(new[]{0,0,1,2,3,4,4,5,6,7,8,9,10,10,10}, 0, 15, 1), 2);
             AssertEquals(sln.BinarySearch(new[]{0,0,1,2,3,4,4,5,6,7,8,9,10,10,10}, 0, 15, 2), 3);
@@ -285,8 +297,9 @@ namespace leetcode
             AssertEquals(sln.BinarySearch(new[]{0,0,1,2,3,4,4,5,6,7,8,9,10,10,10}, 2, 12, 15), 12);
         }
 
-        static void P5(Solution sln)
+        static void P5()
         {
+            LP5.Solution sln = new LP5.Solution();
             AssertEquals(sln.LongestPalindrome("babad"), "bab");
             AssertEquals(sln.LongestPalindrome("cbbd"), "bb");
             AssertEquals(sln.LongestPalindrome("a"), "a");
@@ -302,8 +315,9 @@ namespace leetcode
             AssertEquals(sln.LongestPalindrome("civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth"), "ranynar");
         }
 
-        static void P6(Solution sln)
+        static void P6()
         {
+            LP6.Solution sln = new LP6.Solution();
             AssertEquals(sln.Convert("PAYPALISHIRING", 3), "PAHNAPLSIIGYIR");
             AssertEquals(sln.Convert("PAYPALISHIRING", 4), "PINALSIGYAHRPI");
             AssertEquals(sln.Convert("A", 1), "A");

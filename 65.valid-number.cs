@@ -92,8 +92,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+namespace LP65 {
 // @lc code=start
-public partial class Solution {
+public class Solution {
     int ParseSign(string s, int p)
     {
         if (p>=s.Length) return 0;
@@ -231,4 +232,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

@@ -5,8 +5,9 @@
  */
 using System;
 using System.Text;
+namespace LP6 {
 // @lc code=start
-public partial class Solution {
+public class Solution {
     public string Convert(string s, int numRows) {
         if (numRows==1) return s;
         StringBuilder sb = new StringBuilder(s.Length);
@@ -30,4 +31,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

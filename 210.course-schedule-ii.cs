@@ -72,6 +72,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+namespace LP210 {
 public partial class Solution {
     public bool CheckP210(int[] seq, int[][] prerequisites){
         Dictionary<int, CourseTreeNode> nodes = PrerequisitesToCourseTreeNodes(seq.Length, prerequisites);
@@ -234,4 +235,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

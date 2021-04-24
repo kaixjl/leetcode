@@ -60,8 +60,9 @@
  using System;
  using System.Collections.Generic;
 
+namespace LP1140 {
 // @lc code=start
-public partial class Solution {
+public class Solution {
     /// <summary>
     /// StoneGamesII Helper Method.
     /// </summary>
@@ -112,4 +113,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

@@ -10,6 +10,7 @@ using System.Linq;
 
 // namespace leetcode{
 
+namespace LP19 {
 public class ListNode: IEquatable<ListNode> {
     public int val;
     public ListNode next;
@@ -127,7 +128,7 @@ public class ListNode: IEquatable<ListNode> {
  *     }
  * }
  */
-public partial class Solution {
+public class Solution {
     public ListNode RemoveNthFromEnd(ListNode head, int n) { 
         ListNode f = new ListNode(0, head);
         ListNode l = f, r = head;
@@ -147,5 +148,6 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 
 // }

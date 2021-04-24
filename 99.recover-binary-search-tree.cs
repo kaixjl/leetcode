@@ -52,6 +52,7 @@
  using System;
  using System.Collections.Generic;
 
+namespace LP99 {
 public class TreeNode {
     public int val;
     public TreeNode left;
@@ -63,8 +64,8 @@ public class TreeNode {
     }
 }
 
-public partial class Solution {
-    public bool CheckBST(TreeNode root, TreeNode left=null, TreeNode right=null)
+public class SolutionHelper {
+    static public bool CheckBST(TreeNode root, TreeNode left=null, TreeNode right=null)
     {
         if(root==null)
             return true;
@@ -79,7 +80,7 @@ public partial class Solution {
         }
         return CheckBST(root.left, left, root) && CheckBST(root.right, root, right);
     }
-    public TreeNode CreateBST(int?[] seq)
+    static public TreeNode CreateBST(int?[] seq)
     {
         Queue<TreeNode> processing = new Queue<TreeNode>();
         Queue<TreeNode> toProcess = new Queue<TreeNode>();
@@ -121,7 +122,7 @@ public partial class Solution {
 
         return root;
     }
-    public int?[] BSTToNullableInt(TreeNode root)
+    static public int?[] BSTToNullableInt(TreeNode root)
     {
         List<int?> list = new List<int?>();
         Queue<TreeNode> processing = new Queue<TreeNode>();
@@ -163,7 +164,7 @@ public partial class Solution {
  *     }
  * }
  */
-public partial class Solution {
+public class Solution {
     public void RecoverTree(TreeNode root) {
         List<TreeNode[]> disorders = new List<TreeNode[]>();
         Stack<TreeNode> open = new Stack<TreeNode>();
@@ -191,4 +192,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 

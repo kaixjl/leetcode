@@ -5,8 +5,9 @@
  */
 using System;
 using System.Collections.Generic;
+namespace LP4 {
 // @lc code=start
-public partial class Solution {
+public class Solution {
     public double FindMedianSortedArrays(int[] nums1, int[] nums2) {
         int start1 = 0, start2 = 0, end1 = nums1.Length, end2 = nums2.Length;
         int len_total = end1 + end2;
@@ -233,4 +234,5 @@ public partial class Solution {
     }
 }
 // @lc code=end
+}
 
