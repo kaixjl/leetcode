@@ -24,7 +24,8 @@ namespace leetcode
             // P1632();
             // P983();
             // P1447();
-            P1140();
+            // P1140();
+            P1293();
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -45,6 +46,29 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P1293()
+        {
+            LP1293.Solution sln = new LP1293.Solution();
+            int[][] grid;
+            grid = new int[][]{ new int[]{0,0,0},
+                                new int[]{1,1,0},
+                                new int[]{0,0,0},
+                                new int[]{0,1,1},
+                                new int[]{0,0,0} };
+            AssertEquals(sln.ShortestPath(grid, 1), 6);
+            grid = new int[][]{ new int[]{0,1,1},
+                                new int[]{1,1,1},
+                                new int[]{1,0,0} };
+            AssertEquals(sln.ShortestPath(grid, 1), -1);
+            grid = new int[][]{ new int[]{0,1,0,0,0,0},
+                                new int[]{0,0,0,1,1,0},
+                                new int[]{1,1,1,1,1,1},
+                                new int[]{1,1,1,1,1,0},
+                                new int[]{0,0,0,0,0,0} };
+            AssertEquals(sln.ShortestPath(grid, 1), 11);
+
         }
 
         static void P1140()
