@@ -25,7 +25,8 @@ namespace leetcode
             // P983();
             // P1447();
             // P1140();
-            P1293();
+            // P1293();
+            P1358();
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -46,6 +47,15 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P1358()
+        {
+            LP1358.Solution sln = new LP1358.Solution();
+            AssertEquals(sln.NumberOfSubstrings("abcabc"), 10);
+            AssertEquals(sln.NumberOfSubstrings("aaacb"), 3);
+            AssertEquals(sln.NumberOfSubstrings("abc"), 1);
+            AssertEquals(sln.NumberOfSubstrings("ababababa"), 0);
         }
 
         static void P1293()
