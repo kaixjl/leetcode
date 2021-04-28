@@ -26,7 +26,8 @@ namespace leetcode
             // P1447();
             // P1140();
             // P1293();
-            P1358();
+            // P1358();
+            P324();
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -47,6 +48,89 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P324()
+        {
+            LP324.Solution sln = new LP324.Solution();
+            int[] nums;
+            List<int> list1, list2;
+            nums = new int[]{1};
+            sln.QuickSelect(nums, 0, nums.Length, nums.Length / 2);
+            Debug.Assert(LP324.SolutionHelper.QuickSelectValid(nums, nums.Length / 2));
+            nums = new int[]{2,1};
+            sln.QuickSelect(nums, 0, nums.Length, nums.Length / 2);
+            Debug.Assert(LP324.SolutionHelper.QuickSelectValid(nums, nums.Length / 2));
+            sln.QuickSelect(nums, 0, nums.Length, nums.Length / 2 - 1);
+            Debug.Assert(LP324.SolutionHelper.QuickSelectValid(nums, nums.Length / 2 - 1));
+            nums = new int[]{3,2,1};
+            sln.QuickSelect(nums, 0, nums.Length, nums.Length / 2);
+            Debug.Assert(LP324.SolutionHelper.QuickSelectValid(nums, nums.Length / 2));
+            sln.QuickSelect(nums, 0, nums.Length, nums.Length / 2 - 1);
+            Debug.Assert(LP324.SolutionHelper.QuickSelectValid(nums, nums.Length / 2 - 1));
+            nums = new int[]{2,3,5,1,6,8,7,9,4};
+            sln.QuickSelect(nums, 0, nums.Length, nums.Length / 2);
+            Debug.Assert(LP324.SolutionHelper.QuickSelectValid(nums, nums.Length / 2));
+            sln.QuickSelect(nums, 0, nums.Length, nums.Length / 2 - 1);
+            Debug.Assert(LP324.SolutionHelper.QuickSelectValid(nums, nums.Length / 2 - 1));
+            nums = new int[]{5,5,4,4,4,3,3,2,2};
+            sln.QuickSelect(nums, 0, nums.Length, nums.Length / 2);
+            Debug.Assert(LP324.SolutionHelper.QuickSelectValid(nums, nums.Length / 2));
+            sln.QuickSelect(nums, 0, nums.Length, nums.Length / 2 - 1);
+            Debug.Assert(LP324.SolutionHelper.QuickSelectValid(nums, nums.Length / 2 - 1));
+
+            AssertEquals(LP324.SolutionHelper.WiggleSortValid(new int[]{1,2,3,4}), false);
+            AssertEquals(LP324.SolutionHelper.WiggleSortValid(new int[]{1,6,1,5,1,4}), true);
+            Func<int, int> f = x => (2 - (x / 3) * (6 & 1) - x % 3) * 2 + x / 3;
+            AssertEquals(f(0), 4);
+            AssertEquals(f(1), 2);
+            AssertEquals(f(2), 0);
+            AssertEquals(f(3), 5);
+            AssertEquals(f(4), 3);
+            AssertEquals(f(5), 1);
+
+            AssertEquals(0*2, 0);
+            AssertEquals(0<<1, 0);
+
+            f = x => (1|(x<<1)) % (5|1);
+            AssertEquals(f(0), 1);
+            AssertEquals(f(1), 3);
+            AssertEquals(f(2), 0);
+            AssertEquals(f(3), 2);
+            AssertEquals(f(4), 4);
+
+            nums = new int[]{1,5,1,1,6,4};
+            list1 = new List<int>(nums);
+            sln.WiggleSort(nums);
+            Debug.Assert(LP324.SolutionHelper.WiggleSortValid(nums));
+            list2 = new List<int>(nums);
+            list1.Sort();
+            list2.Sort();
+            AssertEqualsEnumerable(list1, list2);
+            nums = new int[]{1,3,2,2,3,1};
+            list1 = new List<int>(nums);
+            sln.WiggleSort(nums);
+            Debug.Assert(LP324.SolutionHelper.WiggleSortValid(nums));
+            list2 = new List<int>(nums);
+            list1.Sort();
+            list2.Sort();
+            AssertEqualsEnumerable(list1, list2);
+            nums = new int[]{1,5,1,1,6};
+            list1 = new List<int>(nums);
+            sln.WiggleSort(nums);
+            Debug.Assert(LP324.SolutionHelper.WiggleSortValid(nums));
+            list2 = new List<int>(nums);
+            list1.Sort();
+            list2.Sort();
+            AssertEqualsEnumerable(list1, list2);
+            nums = new int[]{2,3,3,2,2,2,1,1};
+            list1 = new List<int>(nums);
+            sln.WiggleSort(nums);
+            Debug.Assert(LP324.SolutionHelper.WiggleSortValid(nums));
+            list2 = new List<int>(nums);
+            list1.Sort();
+            list2.Sort();
+            AssertEqualsEnumerable(list1, list2);
         }
 
         static void P1358()
