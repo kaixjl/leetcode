@@ -56,25 +56,35 @@ namespace leetcode
             LP84.Solution sln = new LP84.Solution();
             int[] heights;
             heights = new int[]{1,2,3,8,7,6,9,3};
-            AssertEqualsEnumerable(sln.LeftEdges(heights), new int[]{0,1,2,3,3,3,6,2});
-            AssertEqualsEnumerable(sln.RightEdges(heights), new int[]{7,7,7,3,4,6,6,7});
+            int[] leftEdges, rightEdges;
+            (leftEdges, rightEdges) = sln.LeftRightEdges(heights);
+            AssertEqualsEnumerable(leftEdges, new int[]{0,1,2,3,3,3,6,2});
+            AssertEqualsEnumerable(rightEdges, new int[]{7,7,6,3,4,6,6,7});
             AssertEquals(sln.LargestRectangleArea(heights), 24);
             heights = new int[]{4,2,3,8,7,6,9,3,4};
-            AssertEqualsEnumerable(sln.LeftEdges(heights), new int[]{0,0,2,3,3,3,6,2,8});
-            AssertEqualsEnumerable(sln.RightEdges(heights), new int[]{0,8,8,3,4,6,6,8,8});
+            (leftEdges, rightEdges) = sln.LeftRightEdges(heights);
+            AssertEqualsEnumerable(leftEdges, new int[]{0,0,2,3,3,3,6,2,8});
+            AssertEqualsEnumerable(rightEdges, new int[]{0,8,6,3,4,6,6,8,8});
             AssertEquals(sln.LargestRectangleArea(heights), 24);
             heights = new int[]{1,2};
-            AssertEqualsEnumerable(sln.LeftEdges(heights), new int[]{0,1});
-            AssertEqualsEnumerable(sln.RightEdges(heights), new int[]{1,1});
+            (leftEdges, rightEdges) = sln.LeftRightEdges(heights);
+            AssertEqualsEnumerable(leftEdges, new int[]{0,1});
+            AssertEqualsEnumerable(rightEdges, new int[]{1,1});
             AssertEquals(sln.LargestRectangleArea(heights), 2);
             heights = new int[]{2,1};
-            AssertEqualsEnumerable(sln.LeftEdges(heights), new int[]{0,0});
-            AssertEqualsEnumerable(sln.RightEdges(heights), new int[]{0,1});
+            (leftEdges, rightEdges) = sln.LeftRightEdges(heights);
+            AssertEqualsEnumerable(leftEdges, new int[]{0,0});
+            AssertEqualsEnumerable(rightEdges, new int[]{0,1});
             AssertEquals(sln.LargestRectangleArea(heights), 2);
             heights = new int[]{2,1,5,6,2,3};
             AssertEquals(sln.LargestRectangleArea(heights), 10);
             heights = new int[]{2,4};
             AssertEquals(sln.LargestRectangleArea(heights), 4);
+            heights = new int[]{2};
+            (leftEdges, rightEdges) = sln.LeftRightEdges(heights);
+            AssertEqualsEnumerable(leftEdges, new int[]{0});
+            AssertEqualsEnumerable(rightEdges, new int[]{0});
+            AssertEquals(sln.LargestRectangleArea(heights), 2);
         }
 
         static void P324()

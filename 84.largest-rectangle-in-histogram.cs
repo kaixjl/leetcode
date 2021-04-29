@@ -51,78 +51,34 @@ using System.Linq;
 namespace LP84 {
 // @lc code=start
 public class Solution {
-    // public int[] Maximum(int[] heights)
-    // {
-    //     // assert(heights.Length >= 2)
-    //     List<int> maximum = new List<int>();
-    //     int last = 0, curr, next;
-    //     for(int i = 0; i < heights.Length - 1; i++)
-    //     {
-    //         curr = heights[i];
-    //         next = heights[i + 1];
-    //         if(last < curr && curr > next)
-    //             maximum.Add(i);
-    //         last = curr;
-    //     }
-    //     curr = heights[heights.Length - 1];
-    //     next = 0;
-    //     if(last < curr && curr > next)
-    //         maximum.Add(heights.Length - 1);
-
-    //     return maximum.ToArray();
-    // }
-    public int[] LeftEdges(int[] heights)
+    public (int[], int[]) LeftRightEdges(int[] heights)
     {
         int[] leftEdges = new int[heights.Length];
-        for(int i = 0; i < leftEdges.Length; i++)
-            leftEdges[i] = -1;
-
-        void IterBody(int currIdx)
-        {
-            int lowestHeight = heights[currIdx];
-            for(int i = currIdx; i < heights.Length; i++)
-            {
-                int currentHeight = heights[i];
-                if(leftEdges[i]==-1 && currentHeight <= lowestHeight)
-                    leftEdges[i] = currIdx;
-
-                lowestHeight = Math.Min(lowestHeight, currentHeight);
-            }
-        }
-
-        for(int i = 0; i < heights.Length; i++)
-            IterBody(i);
-
-        return leftEdges;
-    }
-    public int[] RightEdges(int[] heights)
-    {
-        // assert(heights.Length >= 3)
         int[] rightEdges = new int[heights.Length];
-        for(int i = 0; i < rightEdges.Length; i++)
-            rightEdges[i] = -1;
-
-        void IterBody(int currIdx)
+        Stack<int> stack = new Stack<int>(); // 单调栈
+        stack.Push(-1);
+        for(int i = 0; i < heights.Length; i++)
         {
-            int lowestHeight = heights[currIdx];
-            for(int i = currIdx; i >= 0; i--)
-            {
-                int currentHeight = heights[i];
-                if(rightEdges[i]==-1 && currentHeight <= lowestHeight)
-                    rightEdges[i] = currIdx;
+            int curr = heights[i];
 
-                lowestHeight = Math.Min(lowestHeight, currentHeight);
-            }
+            while(stack.Count > 1 && curr <= heights[stack.Peek()]) // 保证当前元素高度严格大于栈中元素
+                rightEdges[stack.Pop()] = i - 1; // 高度大于等于当前元素的栈中元素的右边界为当前元素 - 1。
+                                                 // 虽然这样会使栈中元素高度等于当前元素的右边界错误（本应该右边界 + 1的元素高度应严格小于当前元素，
+                                                 // 这样会使用当前元素右侧第一个高度等于当前元素的元素 - 1的元素作为右边界），
+                                                 // 但实际上，高度相同元素最右的元素的左右边界是正确的，所以针对本题（P84）的结果是对的。
+                                                 // 不想要这种错误的左右边界可以把该句删除，仅剔除大于等于的元素。然后把该函数再反向跑一遍。
+
+            leftEdges[i] = stack.Peek() + 1; // 此时栈中元素高度严格小于当前元素，当前元素左边界为栈顶元素 + 1.
+            stack.Push(i);
         }
 
-        for(int i = heights.Length - 1; i >= 0; i--)
-            IterBody(i);
+        while(stack.Count > 1)
+            rightEdges[stack.Pop()] = heights.Length - 1;
 
-        return rightEdges;
+        return (leftEdges, rightEdges);
     }
     public int LargestRectangleArea(int[] heights) {
-        var leftEdges = LeftEdges(heights);
-        var rightEdges = RightEdges(heights);
+        var (leftEdges, rightEdges) = LeftRightEdges(heights);
 
         int[] areas = new int[heights.Length];
         for(int i = 0; i < areas.Length; i++)
