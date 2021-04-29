@@ -27,7 +27,8 @@ namespace leetcode
             // P1140();
             // P1293();
             // P1358();
-            P324();
+            // P324();
+            P84();
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -48,6 +49,32 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P84()
+        {
+            LP84.Solution sln = new LP84.Solution();
+            int[] heights;
+            heights = new int[]{1,2,3,8,7,6,9,3};
+            AssertEqualsEnumerable(sln.LeftEdges(heights), new int[]{0,1,2,3,3,3,6,2});
+            AssertEqualsEnumerable(sln.RightEdges(heights), new int[]{7,7,7,3,4,6,6,7});
+            AssertEquals(sln.LargestRectangleArea(heights), 24);
+            heights = new int[]{4,2,3,8,7,6,9,3,4};
+            AssertEqualsEnumerable(sln.LeftEdges(heights), new int[]{0,0,2,3,3,3,6,2,8});
+            AssertEqualsEnumerable(sln.RightEdges(heights), new int[]{0,8,8,3,4,6,6,8,8});
+            AssertEquals(sln.LargestRectangleArea(heights), 24);
+            heights = new int[]{1,2};
+            AssertEqualsEnumerable(sln.LeftEdges(heights), new int[]{0,1});
+            AssertEqualsEnumerable(sln.RightEdges(heights), new int[]{1,1});
+            AssertEquals(sln.LargestRectangleArea(heights), 2);
+            heights = new int[]{2,1};
+            AssertEqualsEnumerable(sln.LeftEdges(heights), new int[]{0,0});
+            AssertEqualsEnumerable(sln.RightEdges(heights), new int[]{0,1});
+            AssertEquals(sln.LargestRectangleArea(heights), 2);
+            heights = new int[]{2,1,5,6,2,3};
+            AssertEquals(sln.LargestRectangleArea(heights), 10);
+            heights = new int[]{2,4};
+            AssertEquals(sln.LargestRectangleArea(heights), 4);
         }
 
         static void P324()
