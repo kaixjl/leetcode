@@ -28,7 +28,8 @@ namespace leetcode
             // P1293();
             // P1358();
             // P324();
-            P84();
+            // P84();
+            P1647();
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -49,6 +50,14 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P1647()
+        {
+            LP1647.Solution sln = new LP1647.Solution();
+            AssertEquals(sln.MinDeletions("aab"), 0);
+            AssertEquals(sln.MinDeletions("aaabbbcc"), 2);
+            AssertEquals(sln.MinDeletions("ceabaacb"), 2);
         }
 
         static void P84()
