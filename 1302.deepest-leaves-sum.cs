@@ -69,41 +69,27 @@ public class TreeNode {
  */
 public class Solution {
     public int DeepestLeavesSum(TreeNode root) {
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        int deepest = 0;
-        int sum = 0;
-        stack.Push(root);
-        while(stack.Count>0)
+        Stack<TreeNode> stack1 = new Stack<TreeNode>(), stack2 = new Stack<TreeNode>();
+        stack2.Push(root);
+        
+        while(stack2.Count>0)
         {
-            var curr = stack.Pop();
-            var currDeep = curr.val / 1000;
-            if(curr.left!=null)
+            Stack<TreeNode> t = stack1;
+            stack1 = stack2;
+            stack2 = t;
+            stack2.Clear();
+            foreach(var curr in stack1)
             {
-                var child = curr.left;
-                var childDeep = currDeep + 1;
-                child.val += childDeep * 1000;
-                if(childDeep > deepest)
-                {
-                    sum = child.val % 1000;
-                    deepest = childDeep;
-                } else if (childDeep == deepest)
-                    sum += child.val % 1000;
-                stack.Push(child);
-            }
-            if(curr.right!=null)
-            {
-                var child = curr.right;
-                var childDeep = currDeep + 1;
-                child.val += childDeep * 1000;
-                if(childDeep > deepest)
-                {
-                    sum = child.val % 1000;
-                    deepest = childDeep;
-                } else if (childDeep == deepest)
-                    sum += child.val % 1000;
-                stack.Push(child);
+                if(curr.left!=null)
+                    stack2.Push(curr.left);
+                if(curr.right!=null)
+                    stack2.Push(curr.right);
             }
         }
+    
+        int sum = 0;
+        foreach(var curr in stack1)
+            sum += curr.val;
 
         return sum;
     }
