@@ -68,149 +68,53 @@
  * 
  * 
  */
+
+using System;
+using System.Collections.Generic;
  namespace LP1293 {
 
 // @lc code=start
 public class Solution {
-    private int ShortestPathHelper(int[][] grid, int k, (int, int) pt, bool[][] onProcessing, int[][] step)
+    private int ShortestPathHelper(int[][] grid, int k, bool[,,] visited)
     {
-        bool InBound((int, int) pt, (int, int) ptl)
-        {
-            (int ptu, int ptv) = pt;
-            (int ptul, int ptvl) = ptl;
-            return ptu >= 0 && ptu < ptul && ptv >=0 && ptv < ptvl;
-        }
-        (int, int) Up((int, int) pt)
-        {
-            (int ptu, int ptv) = pt;
-            return (ptu - 1, ptv);
-        }
-        (int, int) Down((int, int) pt)
-        {
-            (int ptu, int ptv) = pt;
-            return (ptu + 1, ptv);
-        }
-        (int, int) Left((int, int) pt)
-        {
-            (int ptu, int ptv) = pt;
-            return (ptu, ptv - 1);
-        }
-        (int, int) Right((int, int) pt)
-        {
-            (int ptu, int ptv) = pt;
-            return (ptu, ptv + 1);
-        }
-        var (u, v) = pt;
-        (int ul, int vl) ptl = (grid.Length, grid[0].Length);
-        
-        if(pt == (ptl.ul - 1, ptl.vl - 1))
-            return 0;
-        if(step[u][v]!=0)
-            return step[u][v];
+        int[,] move = new int[,]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-        int minStep = int.MaxValue;
-        onProcessing[u][v] = true;
-        
-        //Up
-        var ptUp = Up(pt);
-        var (uUp, vUp) = ptUp;
-        if(InBound(ptUp, ptl) && !onProcessing[uUp][vUp])
+        int ul = grid.Length;
+        int vl = grid[0].Length;
+
+        Queue<(int u, int v, int k)> queue = new Queue<(int u, int v, int k)>();
+        queue.Enqueue((0, 0, k));
+        for(int step = 0; queue.Count > 0; step++)
         {
-            int minStep_l = int.MaxValue;
-            if(grid[uUp][vUp]==1) {
-                if(k > 0) {
-                    minStep_l = ShortestPathHelper(grid, k-1, ptUp, onProcessing, step);
-                    if(minStep_l!=int.MaxValue)
-                        minStep_l++;
+            int cnt = queue.Count;
+            for(int i = 0; i < cnt; i++)
+            {
+                var ptk = queue.Dequeue();
+                if(ptk.u == ul - 1 && ptk.v == vl - 1)
+                    return step;
+                for(int j = 0; j < 4; j++)
+                {
+                    int uNew = ptk.u + move[j,0];
+                    int vNew = ptk.v + move[j,1];
+                    if(uNew >= 0 && uNew < ul && vNew >=0 && vNew < vl)
+                    {
+                        if(grid[uNew][vNew]==1 && ptk.k > 0 && !visited[uNew, vNew, ptk.k - 1]) {
+                            queue.Enqueue((uNew, vNew, ptk.k - 1));
+                            visited[uNew, vNew, ptk.k - 1] = true;
+                        }
+                        else if(grid[uNew][vNew]==0  && !visited[uNew, vNew, ptk.k]) {
+                            queue.Enqueue((uNew, vNew, ptk.k));
+                            visited[uNew, vNew, ptk.k] = true;
+                        }
+                    }
                 }
             }
-            else {
-                minStep_l = ShortestPathHelper(grid, k, ptUp, onProcessing, step);
-                if(minStep_l!=int.MaxValue)
-                    minStep_l++;
-            }
-            if(minStep_l < minStep)
-                minStep = minStep_l;
         }
-        
-        //Down
-        var ptDown = Down(pt);
-        var (uDown, vDown) = ptDown;
-        if(InBound(ptDown, ptl) && !onProcessing[uDown][vDown])
-        {
-            int minStep_l = int.MaxValue;
-            if(grid[uDown][vDown]==1) {
-                if(k > 0) {
-                    minStep_l = ShortestPathHelper(grid, k-1, ptDown, onProcessing, step);
-                    if(minStep_l!=int.MaxValue)
-                        minStep_l++;
-                }
-            }
-            else {
-                minStep_l = ShortestPathHelper(grid, k, ptDown, onProcessing, step);
-                if(minStep_l!=int.MaxValue)
-                    minStep_l++;
-            }
-            if(minStep_l < minStep)
-                minStep = minStep_l;
-        }
-        
-        //Left
-        var ptLeft = Left(pt);
-        var (uLeft, vLeft) = ptLeft;
-        if(InBound(ptLeft, ptl) && !onProcessing[uLeft][vLeft])
-        {
-            int minStep_l = int.MaxValue;
-            if(grid[uLeft][vLeft]==1) {
-                if(k > 0) {
-                    minStep_l = ShortestPathHelper(grid, k-1, ptLeft, onProcessing, step);
-                    if(minStep_l!=int.MaxValue)
-                        minStep_l++;
-                }
-            }
-            else {
-                minStep_l = ShortestPathHelper(grid, k, ptLeft, onProcessing, step);
-                if(minStep_l!=int.MaxValue)
-                    minStep_l++;
-            }
-            if(minStep_l < minStep)
-                minStep = minStep_l;
-        }
-        
-        //Right
-        var ptRight = Right(pt);
-        var (uRight, vRight) = ptRight;
-        if(InBound(ptRight, ptl) && !onProcessing[uRight][vRight])
-        {
-            int minStep_l = int.MaxValue;
-            if(grid[uRight][vRight]==1) {
-                if(k > 0) {
-                    minStep_l = ShortestPathHelper(grid, k-1, ptRight, onProcessing, step);
-                    if(minStep_l!=int.MaxValue)
-                        minStep_l++;
-                }
-            }
-            else {
-                minStep_l = ShortestPathHelper(grid, k, ptRight, onProcessing, step);
-                if(minStep_l!=int.MaxValue)
-                    minStep_l++;
-            }
-            if(minStep_l < minStep)
-                minStep = minStep_l;
-        }
-        onProcessing[u][v] = false;
-        return minStep;
+        return -1;
     }
     public int ShortestPath(int[][] grid, int k) {
-        bool[][] onProcessing = new bool[grid.Length][];
-        for (int i = 0; i < onProcessing.Length; i++)
-            onProcessing[i] = new bool[grid[i].Length];
-        int[][] step = new int[grid.Length][];
-        for (int i = 0; i < step.Length; i++)
-            step[i] = new int[grid[i].Length];
-            
-        var minStep = ShortestPathHelper(grid, k, (0, 0), onProcessing, step);
-        return minStep==int.MaxValue? -1 : minStep;
+        bool[,,] visited = new bool[grid.Length, grid[0].Length, k + 1];
+       return ShortestPathHelper(grid, k, visited);
     }
 }
 // @lc code=end
