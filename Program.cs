@@ -25,11 +25,12 @@ namespace leetcode
             // P983();
             // P1447();
             // P1140();
-            P1293();
+            // P1293();
             // P1358();
             // P324();
             // P84();
             // P1647();
+            P452();
         }
 
         static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
@@ -50,6 +51,27 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P452()
+        {
+            LP452.Solution sln = new LP452.Solution();
+            int[][] points;
+            points = new int[][]{ new int[]{10, 16},
+                                  new int[]{2, 8},
+                                  new int[]{1, 6},
+                                  new int[]{7, 12}};
+            AssertEquals(sln.FindMinArrowShots(points), 2);
+            points = new int[][]{ new int[]{1, 2},
+                                  new int[]{3, 4},
+                                  new int[]{5, 6},
+                                  new int[]{7, 8}};
+            AssertEquals(sln.FindMinArrowShots(points), 4);
+            points = new int[][]{ new int[]{1, 2},
+                                  new int[]{2, 3},
+                                  new int[]{3, 4},
+                                  new int[]{4, 5}};
+            AssertEquals(sln.FindMinArrowShots(points), 2);
         }
 
         static void P1647()
