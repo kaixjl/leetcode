@@ -30,10 +30,11 @@ namespace leetcode
             // P324();
             // P84();
             // P1647();
-            P452();
+            // P452();
+            P787();
         }
 
-        static void AssertEquals<T>(IEquatable<T> val1, IEquatable<T> val2)
+        static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
         {
             if(val1!=null && val2!=null && !val1.Equals(val2))
             {
@@ -51,6 +52,31 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P787()
+        {
+            LP787.Solution sln = new LP787.Solution();
+            int[][] flights;
+            flights = new int[][] { new int[] {0, 1, 100},
+                                    new int[] {1, 2, 100},
+                                    new int[] {0, 2, 500}};
+            AssertEquals(sln.FindCheapestPrice(3, flights, 0, 2, 1), 200);
+            AssertEquals(sln.FindCheapestPrice(3, flights, 0, 2, 0), 500);
+            flights = new int[][] { new int[] {4, 1, 1},
+                                    new int[] {1, 2, 3},
+                                    new int[] {0, 3, 2},
+                                    new int[] {0, 4, 10},
+                                    new int[] {3, 1, 1},
+                                    new int[] {1, 4, 3}};
+            AssertEquals(sln.FindCheapestPrice(5, flights, 2, 1, 1), -1);
+            flights = new int[][] { new int[] {0, 1, 5},
+                                    new int[] {1, 2, 5},
+                                    new int[] {0, 3, 2},
+                                    new int[] {3, 1, 2},
+                                    new int[] {1, 4, 1},
+                                    new int[] {4, 2, 1}};
+            AssertEquals(sln.FindCheapestPrice(5, flights, 0, 2, 2), 7);
         }
 
         static void P452()
@@ -460,7 +486,7 @@ namespace leetcode
         {
             LP19.Solution sln = new LP19.Solution();
             AssertEquals(sln.RemoveNthFromEnd(new LP19.ListNode(new int[]{1,2}), 1), LP19.ListNode.CreateListNode(new int[]{1}));
-            AssertEquals(sln.RemoveNthFromEnd(new LP19.ListNode(new int[]{1}), 1), null);
+            AssertEquals<LP19.ListNode, LP19.ListNode>(sln.RemoveNthFromEnd(new LP19.ListNode(new int[]{1}), 1), null);
             AssertEquals(sln.RemoveNthFromEnd(new LP19.ListNode(new int[]{1,2}), 2), LP19.ListNode.CreateListNode(new int[]{2}));
             AssertEquals(sln.RemoveNthFromEnd(new LP19.ListNode(new int[]{1,2,3}), 2), LP19.ListNode.CreateListNode(new int[]{1,3}));
         }
