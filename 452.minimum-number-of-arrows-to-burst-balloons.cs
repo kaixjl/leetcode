@@ -77,28 +77,18 @@ public class Solution {
         sortedByEnds.Sort((x,y) => { if(x[1]>y[1]) return 1;
                                      else if(x[1]<y[1]) return -1;
                                      else return 0; });
-        
-        List<int> sortedByStartIdx = new List<int>();
-        for(int i = 0; i < points.Length; i++) sortedByStartIdx.Add(i);
-        sortedByStartIdx.Sort((x,y) => { if(sortedByEnds[x][0]>sortedByEnds[y][0]) return 1;
-                                         else if(sortedByEnds[x][0]<sortedByEnds[y][0]) return -1;
-                                         else return 0; });
 
         int idxMinEnd = 0;
         int idxMinStart = 0;
         int shots = 0;
         while(idxMinEnd < points.Length)
         {
-            while(idxMinStart < points.Length && sortedByEnds[idxMinEnd][1] >= sortedByEnds[sortedByStartIdx[idxMinStart]][0])
+            while(idxMinStart < points.Length && sortedByEnds[idxMinEnd][1] >= sortedByEnds[idxMinStart][0])
                 idxMinStart++;
-            
-            for(int i = idxMinStart - 1; i >= 0 && sortedByEnds[sortedByStartIdx[i]]!=null; i--)
-                sortedByEnds[sortedByStartIdx[i]] = null;
 
             shots++;
 
-            while(idxMinEnd < points.Length && sortedByEnds[idxMinEnd]==null)
-                idxMinEnd++;
+            idxMinEnd = idxMinStart ;
         }
 
         return shots;
