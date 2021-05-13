@@ -33,7 +33,8 @@ namespace leetcode
             // P452();
             // P787();
             // P729();
-            P1210();
+            // P1210();
+            P1514();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -54,6 +55,29 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P1514()
+        {
+            LP1514.Solution sln = new LP1514.Solution();
+            int[][] edges;
+            double[] succProb;
+            edges = new int[][] { new int[] {0,1},
+                                  new int[] {1,2},
+                                  new int[] {0,2}};
+            succProb = new double[]{ 0.5, 0.5, 0.2 };
+            Debug.Assert(sln.MaxProbability(3, edges, succProb, 0, 2) - 0.25 < double.Epsilon * 1e10);
+            
+            edges = new int[][] { new int[] {0,1},
+                                  new int[] {1,2},
+                                  new int[] {0,2}};
+            succProb = new double[]{ 0.5, 0.5, 0.3 };
+            Debug.Assert(sln.MaxProbability(3, edges, succProb, 0, 2) - 0.3 < double.Epsilon * 1e10);
+            
+            edges = new int[][] { new int[] {0,1}};
+            succProb = new double[]{ 0.5 };
+            Debug.Assert(sln.MaxProbability(3, edges, succProb, 0, 2) - 0 < double.Epsilon * 1e10);
+            
         }
 
         static void P1210()
