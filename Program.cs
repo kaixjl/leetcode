@@ -31,7 +31,8 @@ namespace leetcode
             // P84();
             // P1647();
             // P452();
-            P787();
+            // P787();
+            P729();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -52,6 +53,15 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P729()
+        {
+            LP729.MyCalendar calendar;
+            calendar = new LP729.MyCalendar();
+            AssertEquals(calendar.Book(10,20), true);
+            AssertEquals(calendar.Book(15,25), false);
+            AssertEquals(calendar.Book(20,30), true);
         }
 
         static void P787()
