@@ -91,13 +91,16 @@ public class ListNode {
 public class Solution {
     public bool HasCycle(ListNode head) {
         // Official Approach 2: Floyd's Cycle Finding Algorithm
+        if(head == null) return false;
+
         ListNode slow = head;
-        ListNode fast = head;
+        ListNode fast = head.next;
         while(fast != null && fast.next != null) {
+            if(slow == fast) return true;
+            fast = fast.next;
+            if(slow == fast) return true;
+            fast = fast.next;
             slow = slow.next;
-            fast = fast.next.next;
-            if(slow == fast)
-                return true;
         }
         return false;
     }
