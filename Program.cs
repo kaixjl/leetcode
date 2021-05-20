@@ -35,7 +35,9 @@ namespace leetcode
             // P729();
             // P1210();
             // P1514();
-            P731();
+            // P731();
+            // P1206();
+            P17();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -56,6 +58,67 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P17()
+        {
+            LP17.Solution sln = new LP17.Solution();
+            AssertEqualsEnumerable(sln.LetterCombinations("23"), new string[]{"ad","ae","af","bd","be","bf","cd","ce","cf"});
+            AssertEqualsEnumerable(sln.LetterCombinations(""), null);
+            AssertEqualsEnumerable(sln.LetterCombinations("2"), new string[]{"a","b","c"});
+            AssertEqualsEnumerable(sln.LetterCombinations("567"), new string[]{"jmp","jmq","jmr","jms","jnp","jnq","jnr","jns","jop","joq","jor","jos","kmp","kmq","kmr","kms","knp","knq","knr","kns","kop","koq","kor","kos","lmp","lmq","lmr","lms","lnp","lnq","lnr","lns","lop","loq","lor","los"});
+        }
+
+        static void P1206()
+        {
+            LP1206.Skiplist skiplist;
+            skiplist = new LP1206.Skiplist();
+            skiplist.Add(1);
+            skiplist.Add(3);
+            skiplist.Add(2);
+            AssertEquals(skiplist.Search(0), false);
+            skiplist.Add(4);
+            AssertEquals(skiplist.Search(1), true);
+            AssertEquals(skiplist.Erase(0), false);
+            AssertEquals(skiplist.Erase(1), true);
+            AssertEquals(skiplist.Search(1), false);
+
+            skiplist = new LP1206.Skiplist();
+            skiplist.Add(9);
+            skiplist.Add(4);
+            skiplist.Add(5);
+            skiplist.Add(6);
+            skiplist.Add(9);
+            AssertEquals(skiplist.Erase(2), false);
+            AssertEquals(skiplist.Erase(1), false);
+            skiplist.Add(2);
+            AssertEquals(skiplist.Search(7), false);
+            AssertEquals(skiplist.Search(4), true);
+            skiplist.Add(5);
+            AssertEquals(skiplist.Erase(6), true);
+            AssertEquals(skiplist.Search(5), true);
+            skiplist.Add(6);
+            skiplist.Add(7);
+            skiplist.Add(4);
+            AssertEquals(skiplist.Erase(3), false);
+            AssertEquals(skiplist.Search(6), true);
+            AssertEquals(skiplist.Erase(3), false);
+            AssertEquals(skiplist.Search(4), true);
+            AssertEquals(skiplist.Search(3), false);
+            AssertEquals(skiplist.Search(8), false);
+            AssertEquals(skiplist.Erase(7), true);
+            AssertEquals(skiplist.Erase(6), true);
+            AssertEquals(skiplist.Search(7), false);
+            AssertEquals(skiplist.Erase(4), true);
+            skiplist.Add(1);
+            skiplist.Add(6);
+            AssertEquals(skiplist.Erase(3), false);
+            skiplist.Add(4);
+            AssertEquals(skiplist.Search(7), false);
+            AssertEquals(skiplist.Search(6), true);
+            AssertEquals(skiplist.Search(1), true);
+            AssertEquals(skiplist.Search(0), false);
+            AssertEquals(skiplist.Search(3), false);
         }
 
         static void P731()
