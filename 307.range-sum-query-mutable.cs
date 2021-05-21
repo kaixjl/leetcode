@@ -63,42 +63,46 @@
  * 
  * 
  */
-// ref: https://zhuanlan.zhihu.com/p/99167607
-// ref: https://blog.csdn.net/Yaokai_AssultMaster/article/details/79492190
+// ref: https://www.jianshu.com/p/6fd130084a43
 using System;
 using System.Collections.Generic;
 
 namespace LP307 {
 // @lc code=start
 public class NumArray {
-    int[] bit;
+    int[] st;
     public NumArray(int[] nums) {
-        bit = new int[nums.Length + 1];
-        for(int i = 1; i < bit.Length; i++) {
-            bit[i] += nums[i - 1];
-            int j = i + (i & -i);
-            if (j < bit.Length)
-                bit[j] += bit[i];
-        }
+        st = new int[nums.Length * 2];
+        for(int i = nums.Length; i < st.Length; i++)
+            st[i] = nums[i - nums.Length];
+        
+        for(int i = nums.Length - 1; i > 0; i--)
+            st[i] = st[2 * i] + st[2 * i + 1];
     }
     
     public void Update(int index, int val) {
-        int oldVal = SumRange(index, index);
-        // i + (i & -i) 为 i 的父节点
-        for(int i = index + 1; i < bit.Length; i += i & -i)
-            bit[i] = bit[i] - oldVal + val;
+        int oldVal = st[index + st.Length / 2];
+        for(int i = index + st.Length / 2; i > 0; i /= 2)
+            st[i] = st[i] - oldVal + val;
     }
     
     public int SumRange(int left, int right) {
-        return PrefixSum(right) - PrefixSum(left - 1);
-    }
-
-    public int PrefixSum(int right) {
-        right++;
+        int n = st.Length >> 1;
+        left += n;
+        right += n;
         int acc = 0;
-        // lowbit(x) := x & ~x+1 = x & -x; 即取二进制形式中最后一个1以及之后的0所构成的数。
-        for(; right > 0; right -= right & -right)
-            acc += bit[right];
+        while(left <= right) {
+            if(left % 2 == 1) {
+                acc += st[left];
+                left++;
+            }
+            if(right % 2 == 0) {
+                acc += st[right];
+                right--;
+            }
+            left /= 2;
+            right /= 2;
+        }
         return acc;
     }
 }
