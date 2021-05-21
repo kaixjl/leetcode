@@ -37,7 +37,8 @@ namespace leetcode
             // P1514();
             // P731();
             // P1206();
-            P17();
+            // P17();
+            P60();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -58,6 +59,15 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P60()
+        {
+            LP60.Solution sln = new LP60.Solution();
+            AssertEquals(sln.GetPermutation(3, 3), "213");
+            AssertEquals(sln.GetPermutation(4, 9), "2314");
+            AssertEquals(sln.GetPermutation(3, 1), "123");
+            AssertEquals(sln.GetPermutation(1, 1), "1");
         }
 
         static void P17()
