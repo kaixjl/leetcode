@@ -38,7 +38,8 @@ namespace leetcode
             // P731();
             // P1206();
             // P17();
-            P60();
+            // P60();
+            P307();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -59,6 +60,15 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P307()
+        {
+            LP307.NumArray numArray;
+            numArray = new LP307.NumArray(new int[]{1, 3, 5});
+            AssertEquals(numArray.SumRange(0, 2), 9);
+            numArray.Update(1, 2);
+            AssertEquals(numArray.SumRange(0, 2), 8);
         }
 
         static void P60()
