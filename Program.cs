@@ -39,7 +39,10 @@ namespace leetcode
             // P1206();
             // P17();
             // P60();
-            P307();
+            // P307();
+            // P155();
+            // P225();
+            P295();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -60,6 +63,89 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P295()
+        {
+            LP295.PriorityQueue<int> pq = new LP295.PriorityQueue<int>(new int[]{5, 7, 1, 6, 2});
+            pq.Offer(6);
+            pq.Offer(2);
+            AssertEquals(pq.Peek(), 7);
+            pq.Offer(9);
+            pq.Offer(9);
+            AssertEquals(pq.Poll(), 9);
+            AssertEquals(pq.Peek(), 9);
+
+            pq = new LP295.PriorityQueue<int>(new int[]{5, 7, 3, 6, 2}, true);
+            pq.Offer(3);
+            pq.Offer(2);
+            AssertEquals(pq.Peek(), 2);
+            pq.Offer(1);
+            pq.Offer(1);
+            AssertEquals(pq.Poll(), 1);
+            AssertEquals(pq.Peek(), 1);
+
+            LP295.MedianFinder medianFinder = new LP295.MedianFinder();
+            medianFinder.AddNum(1);    // arr = [1]
+            medianFinder.AddNum(2);    // arr = [1, 2]
+            AssertEquals(medianFinder.FindMedian(), (1 + 2) / 2.0); // return 1.5 (i.e., (1 + 2) / 2)
+            medianFinder.AddNum(3);    // arr[1, 2, 3]
+            AssertEquals(medianFinder.FindMedian(), 2.0); // return 2.0
+            medianFinder.AddNum(4);
+            AssertEquals(medianFinder.FindMedian(), (2 + 3) / 2.0);
+            medianFinder.AddNum(1);
+            AssertEquals(medianFinder.FindMedian(), 2.0);
+            medianFinder.AddNum(1);
+            AssertEquals(medianFinder.FindMedian(), (1 + 2) / 2.0);
+            medianFinder.AddNum(4);
+            AssertEquals(medianFinder.FindMedian(), 2.0);
+
+            medianFinder = new LP295.MedianFinder();
+            medianFinder.AddNum(1);
+            AssertEquals(medianFinder.FindMedian(),1.0);
+            medianFinder.AddNum(2);
+            AssertEquals(medianFinder.FindMedian(),1.5);
+            medianFinder.AddNum(3);
+            AssertEquals(medianFinder.FindMedian(),2.0);
+            medianFinder.AddNum(4);
+            AssertEquals(medianFinder.FindMedian(),2.5);
+            medianFinder.AddNum(5);
+            AssertEquals(medianFinder.FindMedian(),3.0);
+            medianFinder.AddNum(6);
+            AssertEquals(medianFinder.FindMedian(),3.5);
+            medianFinder.AddNum(7);
+            AssertEquals(medianFinder.FindMedian(),4.0);
+            medianFinder.AddNum(8);
+            AssertEquals(medianFinder.FindMedian(),4.5);
+            medianFinder.AddNum(9);
+            AssertEquals(medianFinder.FindMedian(),5.0);
+            medianFinder.AddNum(10);
+            AssertEquals(medianFinder.FindMedian(),5.5);
+
+        }
+
+        static void P225()
+        {
+            LP225.MyStack myStack;
+            myStack = new();
+            myStack.Push(1);
+            myStack.Push(2);
+            AssertEquals(myStack.Top(), 2);
+            AssertEquals(myStack.Pop(), 2);
+            AssertEquals(myStack.Empty(), false);
+        }
+
+        static void P155()
+        {
+            LP155.MinStack minStack;
+            minStack = new();
+            minStack.Push(-2);
+            minStack.Push(0);
+            minStack.Push(-3);
+            AssertEquals(minStack.GetMin(), -3);
+            minStack.Pop();
+            AssertEquals(minStack.Top(), 0);
+            AssertEquals(minStack.GetMin(), -2);
         }
 
         static void P307()
