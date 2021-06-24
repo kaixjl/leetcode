@@ -42,7 +42,8 @@ namespace leetcode
             // P307();
             // P155();
             // P225();
-            P295();
+            // P295();
+            P23();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -65,23 +66,37 @@ namespace leetcode
                 throw new Exception($"val1.Count>0, but val2==null.");
         }
 
+        static void P23() {
+            LP23.ListNode head = LP23.ListNodeHelper.ConstructList(new int[]{1, 2, 3, 4});
+            AssertEqualsEnumerable(LP23.ListNodeHelper.ListNode2List(head), new int[]{1, 2, 3, 4});
+            
+            LP23.Solution sln = new LP23.Solution();
+            var lists = new LP23.ListNode[] {
+                LP23.ListNodeHelper.ConstructList(new int[]{1,4,5}),
+                LP23.ListNodeHelper.ConstructList(new int[]{1,3,4}),
+                LP23.ListNodeHelper.ConstructList(new int[]{2,6})
+            };
+            head = sln.MergeKLists(lists);
+            AssertEqualsEnumerable(LP23.ListNodeHelper.ListNode2List(head), new int[]{1,1,2,3,4,4,5,6});
+        }
+
         static void P295()
         {
-            LP295.PriorityQueue<int> pq = new LP295.PriorityQueue<int>(new int[]{5, 7, 1, 6, 2});
-            pq.Offer(6);
-            pq.Offer(2);
+            LP295.PriorityQueue<int, int> pq = new LP295.PriorityQueue<int, int>(new int[]{5, 7, 1, 6, 2}, new int[]{5, 7, 1, 6, 2});
+            pq.Offer(6, 6);
+            pq.Offer(2, 2);
             AssertEquals(pq.Peek(), 7);
-            pq.Offer(9);
-            pq.Offer(9);
+            pq.Offer(9, 9);
+            pq.Offer(9, 9);
             AssertEquals(pq.Poll(), 9);
             AssertEquals(pq.Peek(), 9);
 
-            pq = new LP295.PriorityQueue<int>(new int[]{5, 7, 3, 6, 2}, true);
-            pq.Offer(3);
-            pq.Offer(2);
+            pq = new LP295.PriorityQueue<int, int>(new int[]{5, 7, 3, 6, 2}, new int[]{5, 7, 3, 6, 2}, true);
+            pq.Offer(3, 3);
+            pq.Offer(2, 2);
             AssertEquals(pq.Peek(), 2);
-            pq.Offer(1);
-            pq.Offer(1);
+            pq.Offer(1, 1);
+            pq.Offer(1, 1);
             AssertEquals(pq.Poll(), 1);
             AssertEquals(pq.Peek(), 1);
 
