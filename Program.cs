@@ -43,7 +43,8 @@ namespace leetcode
             // P155();
             // P225();
             // P295();
-            P23();
+            // P23();
+            P240();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -64,6 +65,18 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P240() {
+            LP240.Solution sln = new LP240.Solution();
+            int[][] arr;
+            arr = new int[][] { new int[] { 1,4,7,11,15 },
+                                new int[] { 2,5,8,12,19 },
+                                new int[] { 3,6,9,16,22 },
+                                new int[] { 10,13,14,17,24 },
+                                new int[] { 18,21,23,26,30 } };
+            AssertEquals(sln.SearchMatrix(arr, 5), true);
+            AssertEquals(sln.SearchMatrix(arr, 20), false);
         }
 
         static void P23() {
