@@ -44,7 +44,8 @@ namespace leetcode
             // P225();
             // P295();
             // P23();
-            P240();
+            // P240();
+            P241();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -65,6 +66,12 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P241() {
+            LP241.Solution sln = new LP241.Solution();
+            AssertEqualsEnumerable(sln.DiffWaysToCompute("2-1-1").OrderBy(x => x).ToArray(), new int[]{0, 2}.OrderBy(x => x).ToArray());
+            AssertEqualsEnumerable(sln.DiffWaysToCompute("2*3-4*5").OrderBy(x => x).ToArray(), new int[]{-34,-14,-10,-10,10}.OrderBy(x => x).ToArray());
         }
 
         static void P240() {
