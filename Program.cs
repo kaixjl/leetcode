@@ -45,7 +45,8 @@ namespace leetcode
             // P295();
             // P23();
             // P240();
-            P241();
+            // P241();
+            P63();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -66,6 +67,15 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P63() {
+            LP63.Solution sln = new LP63.Solution();
+            AssertEquals(sln.UniquePathsWithObstacles(new int[][] { new int[] {0,0,0},
+                                                                    new int[] {0,1,0},
+                                                                    new int[] {0,0,0}}), 2);
+            AssertEquals(sln.UniquePathsWithObstacles(new int[][] { new int[] {0,1,},
+                                                                    new int[] {0,0,}}), 1);
         }
 
         static void P241() {
