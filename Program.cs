@@ -47,7 +47,8 @@ namespace leetcode
             // P240();
             // P241();
             // P63();
-            P76();
+            // P76();
+            P239();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -68,6 +69,13 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P239() {
+            LP239.Solution sln = new LP239.Solution();
+            AssertEqualsEnumerable(sln.MaxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7}, 3), new int[]{3,3,5,5,6,7});
+            AssertEqualsEnumerable(sln.MaxSlidingWindow(new int[]{1}, 1), new int[]{1});
+            AssertEqualsEnumerable(sln.MaxSlidingWindow(new int[]{1,-1}, 1), new int[]{1,-1});
         }
 
         static void P76() {
