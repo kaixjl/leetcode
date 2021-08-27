@@ -46,7 +46,8 @@ namespace leetcode
             // P23();
             // P240();
             // P241();
-            P63();
+            // P63();
+            P76();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -67,6 +68,14 @@ namespace leetcode
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P76() {
+            LP76.Solution sln = new LP76.Solution();
+            AssertEquals(sln.MinWindow("ADOBECODEBANC", "ABC"), "BANC");
+            AssertEquals(sln.MinWindow("AABCBAADCBAADDC", "ABCD"), "ADCB");
+            AssertEquals(sln.MinWindow("a","a"), "a");
+            AssertEquals(sln.MinWindow("a", "aa"), "");
         }
 
         static void P63() {
