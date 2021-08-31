@@ -48,7 +48,8 @@ namespace leetcode
             // P241();
             // P63();
             // P76();
-            P239();
+            // P239();
+            P218();
         }
 
         static void AssertEquals<T, U>(T val1, U val2) where T: IEquatable<U> where U: IEquatable<T>
@@ -61,14 +62,54 @@ namespace leetcode
 
         static void AssertEqualsEnumerable<T>(IEnumerable<T> val1, IEnumerable<T> val2)
         {
-            if(val1!=null && val2!=null && !val1.SequenceEqual(val2))
+            if(val1!=null && val2!=null)
             {
-                throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
+                Type t = typeof(T);
+                if(Array.Exists(t.GetInterfaces(), x => x.IsGenericType ? x.GetGenericTypeDefinition() == typeof(IEnumerable<>) : false)) {
+                    var m = typeof(Program).GetMethod(nameof(AssertEqualsEnumerable), System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic);
+                    Type u = t.GetGenericArguments()[0];
+                    m = m.MakeGenericMethod(u);
+                    foreach(var (v1, v2) in val1.Zip(val2)) {
+                        m.Invoke(null, new object[]{v1, v2});
+                    }
+                }
+                else if(!val1.SequenceEqual(val2))
+                    throw new Exception($"Equation Assertion Failed. val1 = \"{val1}\" but val2 = \"{val2}\".");
             }
             if(val1==null && val2!=null && val2.Count()>0)
                 throw new Exception($"val1==null, but val2.Count!=0");
             if(val2==null && val1!=null && val1.Count()>0)
                 throw new Exception($"val1.Count>0, but val2==null.");
+        }
+
+        static void P218() {
+            LP218.Solution sln = new LP218.Solution();
+            AssertEqualsEnumerable(sln.GetSkyline(new int[][] { new int[] {2,9,10},
+                                                                new int[] {3,7,15},
+                                                                new int[] {5,12,12},
+                                                                new int[] {15,20,10},
+                                                                new int[] {19,24,8}}),
+                                                  new int[][] { new int[] {2,10},
+                                                                new int[] {3,15},
+                                                                new int[] {7,12},
+                                                                new int[] {12,0},
+                                                                new int[] {15,10},
+                                                                new int[] {20,8},
+                                                                new int[] {24,0}});
+            AssertEqualsEnumerable(sln.GetSkyline(new int[][] { new int[] {1,2,1},
+                                                                new int[] {1,2,2},
+                                                                new int[] {1,2,3}}),
+                                                  new int[][] { new int[] {1,3},
+                                                                new int[] {2,0}});
+            AssertEqualsEnumerable(sln.GetSkyline(new int[][] { new int[] {4,9,10},
+                                                                new int[] {4,9,15},
+                                                                new int[] {4,9,12},
+                                                                new int[] {10,12,10},
+                                                                new int[] {10,12,8}}),
+                                                  new int[][] { new int[] {4,15},
+                                                                new int[] {9,0},
+                                                                new int[] {10,10},
+                                                                new int[] {12,0}});
         }
 
         static void P239() {
